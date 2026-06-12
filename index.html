@@ -168,9 +168,55 @@ tr:hover td{background:var(--gray-light);cursor:pointer}
 /* SYNC */
 .sync-indicator{position:fixed;bottom:1rem;right:1rem;background:var(--blue);color:#fff;padding:5px 12px;border-radius:99px;font-size:11px;opacity:0;transition:opacity .3s;z-index:200}
 .sync-indicator.show{opacity:1}
+
+.lock-screen{position:fixed;inset:0;background:#1A3A5C;display:flex;align-items:center;justify-content:center;z-index:9999}
+.lock-box{background:#fff;border-radius:16px;padding:2.5rem 2rem;width:340px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.3)}
+.lock-logo{font-size:11px;font-weight:600;letter-spacing:.12em;color:#6B6A66;text-transform:uppercase;margin-bottom:4px}
+.lock-title{font-size:20px;font-weight:600;color:#1A3A5C;margin-bottom:6px}
+.lock-sub{font-size:13px;color:#6B6A66;margin-bottom:1.5rem}
+.lock-input{width:100%;padding:10px 14px;border:1.5px solid #E0DDD6;border-radius:8px;font-size:15px;outline:none;text-align:center;letter-spacing:.15em;margin-bottom:10px}
+.lock-input:focus{border-color:#2E86C1}
+.lock-btn{width:100%;padding:10px;background:#1A3A5C;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:background .15s}
+.lock-btn:hover{background:#1A5276}
+.lock-error{font-size:12px;color:#922B21;margin-top:6px;min-height:18px}
+.lock-hint{font-size:11px;color:#6B6A66;margin-top:1rem}
+
 </style>
 </head>
 <body>
+
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-logo">ПрАТ «ХК «Київміськбуд»</div>
+    <div class="lock-title">🔒 Трекер КМБ</div>
+    <div class="lock-sub">Введіть пароль для доступу</div>
+    <input class="lock-input" type="password" id="lockInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPass()">
+    <button class="lock-btn" onclick="checkPass()">Увійти</button>
+    <div class="lock-error" id="lockError"></div>
+    <div class="lock-hint">Корпоративний доступ · КМБ 2025–2026</div>
+  </div>
+</div>
+<script>
+(function(){
+  const PASS = 'KMB2025!';
+  const SESSION_KEY = 'kmb_auth';
+  if(sessionStorage.getItem(SESSION_KEY)==='ok'){
+    document.getElementById('lockScreen').style.display='none';
+  }
+  window.checkPass=function(){
+    const val=document.getElementById('lockInput').value;
+    if(val===PASS){
+      sessionStorage.setItem(SESSION_KEY,'ok');
+      document.getElementById('lockScreen').style.display='none';
+    } else {
+      document.getElementById('lockError').textContent='Невірний пароль. Спробуйте ще раз.';
+      document.getElementById('lockInput').value='';
+      document.getElementById('lockInput').focus();
+    }
+  };
+})();
+</script>
+
 <div class="app">
 <aside class="sidebar">
   <div class="sidebar-header">
