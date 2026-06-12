@@ -546,6 +546,23 @@ function renderRow(c){
 }
 
 // ── DETAIL ────────────────────────────────────────────────
+function renderSubfolders(c){
+  const folders=[
+    {key:'01',label:'01_Статутні_документи'},
+    {key:'02',label:'02_Листи-вимоги'},
+    {key:'03',label:'03_Відповіді'},
+    {key:'04',label:'04_Скарги_НКЦПФР'},
+    {key:'05',label:'05_Суд'},
+    {key:'06',label:'06_Отримані_документи'},
+    {key:'07',label:'07_Аналітика'},
+  ];
+  if(!c.sub) return folders.map(f=>'<a href="https://drive.google.com/drive/folders/'+c.driveId+'" target="_blank" style="text-decoration:none"><div class="drive-folder" style="cursor:pointer">📁 '+f.label+'</div></a>').join('');
+  return folders.map(function(f){
+    var fid=c.sub[f.key]||c.driveId;
+    return '<a href="https://drive.google.com/drive/folders/'+fid+'" target="_blank" style="text-decoration:none"><div class="drive-folder" style="cursor:pointer">📁 '+f.label+'</div></a>';
+  }).join('');
+}
+
 window._openDetail=function(id){
   currentDetailId=id;
   const c=COMPANIES.find(x=>x.id===id);
@@ -553,48 +570,51 @@ window._openDetail=function(id){
   const logs=(st.logs||[]).slice().reverse();
   const over=isOverdue(st.deadline);
   document.getElementById('detailTitle').textContent=c.name;
-  document.getElementById('detailBody').innerHTML=`
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
-      <div><div class="detail-title">${c.full}</div><div class="detail-meta">ЄДРПОУ ${c.code} · Частка ${c.share}%</div></div>
-      <div>${badge(TRACK_LABEL[st.track||'new'],TRACK_CLASS[st.track||'new'])} <span style="margin-left:3px">${badge('Рів.'+(st.level||0),LVL_CLASS[st.level||0])}</span></div>
-    </div>
-    <div class="mini-stats">
-      <div class="mini-stat"><div class="mini-stat-n">${fmtDate(st.lastDate)}</div><div class="mini-stat-l">Остання подія</div></div>
-      <div class="mini-stat"><div class="mini-stat-n ${over?'overdue-cell':''}">${fmtDate(st.deadline)}${over?' ⚠':''}</div><div class="mini-stat-l">Дедлайн</div></div>
-      <div class="mini-stat"><div class="mini-stat-n">${logs.length}</div><div class="mini-stat-l">Подій</div></div>
-    </div>
-    <div class="next-box"><div class="next-box-label">Наступний крок</div>${st.nextStep||'Відправити Лист №1'}</div>
-    <div class="detail-actions">
-      <button class="btn btn-blue btn-sm" onclick="closeDetail();_openAddEvent('${id}')">+ Додати подію</button>
-      <a href="https://drive.google.com/drive/folders/${c.driveId}" target="_blank" style="text-decoration:none"><button class="btn btn-sm">📁 Google Drive</button></a>
-    </div>
-    <div class="section-label">Структура папки Google Drive</div>
-        <div class="drive-folders">${[
-      {key:'01',label:'01_Статутні_документи'},
-      {key:'02',label:'02_Листи-вимоги'},
-      {key:'03',label:'03_Відповіді'},
-      {key:'04',label:'04_Скарги_НКЦПФР'},
-      {key:'05',label:'05_Суд'},
-      {key:'06',label:'06_Отримані_документи'},
-      {key:'07',label:'07_Аналітика'},
-    ].map(f=>`<a href="https://drive.google.com/drive/folders/${c.sub[f.key]}" target="_blank" style="text-decoration:none"><div class="drive-folder" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='#D6EAF8'" onmouseout="this.style.background=''">📁 ${f.label}</div></a>`).join('')}</div></a>`).join('')}</div>
-    <div class="section-label">Журнал подій</div>
-    <div id="logsContainer">${logs.length?logs.map((l,ri)=>{const i=(st.logs||[]).length-1-ri;return renderLogItem(l,id,i)}).join(''):'<div style="font-size:13px;color:var(--text-muted);padding:8px 0">Подій ще немає.</div>'}</div>`;
+  const trackB=badge(TRACK_LABEL[st.track||'new'],TRACK_CLASS[st.track||'new']);
+  const lvlB=badge('Рів.'+(st.level||0),LVL_CLASS[st.level||0]);
+  const overClass=over?'overdue-cell':'';
+  const logsHtml=logs.length
+    ?logs.map(function(l,ri){var i=(st.logs||[]).length-1-ri;return renderLogItem(l,id,i);}).join('')
+    :'<div style="font-size:13px;color:var(--text-muted);padding:8px 0">Подій ще немає.</div>';
+  document.getElementById('detailBody').innerHTML=
+    '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">'
+    +'<div><div class="detail-title">'+c.full+'</div><div class="detail-meta">ЄДРПОУ '+c.code+' · Частка '+c.share+'%</div></div>'
+    +'<div>'+trackB+' <span style="margin-left:3px">'+lvlB+'</span></div>'
+    +'</div>'
+    +'<div class="mini-stats">'
+    +'<div class="mini-stat"><div class="mini-stat-n">'+fmtDate(st.lastDate)+'</div><div class="mini-stat-l">Остання подія</div></div>'
+    +'<div class="mini-stat"><div class="mini-stat-n '+overClass+'">'+fmtDate(st.deadline)+(over?' ⚠':'')+'</div><div class="mini-stat-l">Дедлайн</div></div>'
+    +'<div class="mini-stat"><div class="mini-stat-n">'+logs.length+'</div><div class="mini-stat-l">Подій</div></div>'
+    +'</div>'
+    +'<div class="next-box"><div class="next-box-label">Наступний крок</div>'+(st.nextStep||'Відправити Лист №1')+'</div>'
+    +'<div class="detail-actions">'
+    +'<button class="btn btn-blue btn-sm" onclick="closeDetail();_openAddEvent(''+id+'')">+ Додати подію</button>'
+    +'<a href="https://drive.google.com/drive/folders/'+c.driveId+'" target="_blank" style="text-decoration:none"><button class="btn btn-sm">📁 Google Drive</button></a>'
+    +'</div>'
+    +'<div class="section-label">Структура папки Google Drive</div>'
+    +'<div class="drive-folders">'+renderSubfolders(c)+'</div>'
+    +'<div class="section-label">Журнал подій</div>'
+    +'<div id="logsContainer">'+logsHtml+'</div>';
   document.getElementById('detailModal').classList.add('open');
 };
 
 function renderLogItem(l,companyId,index){
-  return`<div class="log-item" id="log_${companyId}_${index}">
-    <button class="log-del" onclick="_deleteLog('${companyId}',${index})" title="Видалити подію">🗑</button>
-    <div class="log-item-header">
-      <span class="log-tag ${TYPE_CLASS[l.type]||'lt-note'}">${TYPE_LABEL[l.type]||l.type}</span>
-      <span class="log-date">${fmtDate(l.date)}</span>
-      <span style="margin-left:auto">${badge(TRACK_LABEL[l.track||'new'],TRACK_CLASS[l.track||'new'])} ${badge('Рів.'+(l.level||0),LVL_CLASS[l.level||0])}</span>
-    </div>
-    ${l.note?`<div class="log-text">${l.note}</div>`:''}
-    ${l.nextStep?`<div class="log-next">→ ${l.nextStep}</div>`:''}
-    ${l.driveLink?`<div class="log-link">📁 <a href="${l.driveLink}" target="_blank">Відкрити документ у Google Drive</a></div>`:''}
-  </div>`;
+  const noteHtml=l.note?'<div class="log-text">'+l.note+'</div>':'';
+  const nextHtml=l.nextStep?'<div class="log-next">→ '+l.nextStep+'</div>':'';
+  const driveHtml=l.driveLink?'<div class="log-link">📁 <a href="'+l.driveLink+'" target="_blank">Відкрити документ у Google Drive</a></div>':'';
+  const trackBadge=badge(TRACK_LABEL[l.track||'new'],TRACK_CLASS[l.track||'new']);
+  const lvlBadge=badge('Рів.'+(l.level||0),LVL_CLASS[l.level||0]);
+  const typeClass=TYPE_CLASS[l.type]||'lt-note';
+  const typeLabel=TYPE_LABEL[l.type]||l.type;
+  return '<div class="log-item" id="log_'+companyId+'_'+index+'">'
+    +'<button class="log-del" onclick="_deleteLog(''+companyId+'','+index+')" title="Видалити подію">🗑</button>'
+    +'<div class="log-item-header">'
+    +'<span class="log-tag '+typeClass+'">'+typeLabel+'</span>'
+    +'<span class="log-date">'+fmtDate(l.date)+'</span>'
+    +'<span style="margin-left:auto">'+trackBadge+' '+lvlBadge+'</span>'
+    +'</div>'
+    +noteHtml+nextHtml+driveHtml
+    +'</div>';
 }
 
 window._deleteLog=async function(companyId,index){
@@ -603,7 +623,7 @@ window._deleteLog=async function(companyId,index){
   logs.splice(index,1);
   state[companyId].logs=logs;
   if(logs.length>0){const last=logs[logs.length-1];state[companyId].lastDate=last.date;state[companyId].nextStep=last.nextStep||state[companyId].nextStep}
-  await set(ref(db,`companies/${companyId}`),state[companyId]);
+  await set(ref(db,'companies/'+companyId),state[companyId]);
   showSync();
   _openDetail(companyId);
   render();
@@ -637,7 +657,7 @@ window.saveEvent=async function(){
   const logEntry={type,date,note,nextStep,track,level};
   if(driveLink)logEntry.driveLink=driveLink;
   state[id].logs.push(logEntry);
-  await set(ref(db,`companies/${id}`),state[id]);
+  await set(ref(db,'companies/'+id),state[id]);
   showSync();closeAdd();render();
   if(currentDetailId===id)_openDetail(id);
 };
@@ -661,11 +681,11 @@ function renderTasks(){
   const done=all.filter(t=>t.status==='done').length;
   const active=all.filter(t=>t.status==='todo').length;
   const overdue=all.filter(t=>t.status==='todo'&&isOverdue(t.deadline)).length;
-  document.getElementById('taskStats').innerHTML=`
-    <div class="mini-stat"><div class="mini-stat-n">${all.length}</div><div class="mini-stat-l">Всього</div></div>
-    <div class="mini-stat"><div class="mini-stat-n" style="color:var(--blue)">${active}</div><div class="mini-stat-l">Активних</div></div>
-    <div class="mini-stat"><div class="mini-stat-n" style="color:var(--green)">${done}</div><div class="mini-stat-l">Виконано</div></div>
-    <div class="mini-stat"><div class="mini-stat-n" style="color:var(--red)">${overdue}</div><div class="mini-stat-l">Прострочено</div></div>`;
+  document.getElementById('taskStats').innerHTML=
+    '<div class="mini-stat"><div class="mini-stat-n">'+all.length+'</div><div class="mini-stat-l">Всього</div></div>'
+    +'<div class="mini-stat"><div class="mini-stat-n" style="color:var(--blue)">'+active+'</div><div class="mini-stat-l">Активних</div></div>'
+    +'<div class="mini-stat"><div class="mini-stat-n" style="color:var(--green)">'+done+'</div><div class="mini-stat-l">Виконано</div></div>'
+    +'<div class="mini-stat"><div class="mini-stat-n" style="color:var(--red)">'+overdue+'</div><div class="mini-stat-l">Прострочено</div></div>';
 
   const el=document.getElementById('tasksList');
   if(!list.length){el.innerHTML='<div class="empty">Задач немає. Натисніть «+ Задача» щоб додати.</div>';return}
@@ -684,38 +704,42 @@ function getDeadlineClass(d,status){
 function renderTaskItem(t){
   const company=COMPANIES.find(c=>c.id===t.companyId);
   const dlClass=getDeadlineClass(t.deadline,t.status);
-  return`<div class="task-item">
-    <div class="task-check ${t.status==='done'?'done':''}" onclick="_toggleTask('${t.id}')">${t.status==='done'?'✓':''}</div>
-    <div class="task-body">
-      <div class="task-title ${t.status==='done'?'done':''}">${t.title}</div>
-      <div class="task-meta">
-        ${company?`<span class="task-company">🏢 ${company.name}</span>`:'<span class="task-company">📋 Загальна</span>'}
-        ${t.assignee?`<span class="task-company">👤 ${t.assignee}</span>`:''}
-        ${t.deadline?`<span class="task-deadline ${dlClass}">📅 ${fmtDate(t.deadline)}</span>`:''}
-        <span class="priority-badge ${PRIO_CLASS[t.priority]||'p-mid'}">${PRIO_LABEL[t.priority]||'Середній'}</span>
-      </div>
-      ${t.desc?`<div style="font-size:12px;color:var(--text-muted);margin-top:4px">${t.desc}</div>`:''}
-      ${t.driveLink?`<div style="font-size:11px;margin-top:4px">📁 <a href="${t.driveLink}" target="_blank" style="color:var(--blue-bright);text-decoration:none">Документ Google Drive</a></div>`:''}
-    </div>
-    <div class="task-actions">
-      <button class="btn btn-sm" onclick="_editTask('${t.id}')" title="Редагувати">✏️</button>
-      <button class="btn btn-sm btn-red" onclick="_deleteTask('${t.id}')" title="Видалити">🗑</button>
-    </div>
-  </div>`;
+  const companyHtml=company
+    ?'<span class="task-company">🏢 '+company.name+'</span>'
+    :'<span class="task-company">📋 Загальна</span>';
+  const assigneeHtml=t.assignee?'<span class="task-company">👤 '+t.assignee+'</span>':'';
+  const deadlineHtml=t.deadline?'<span class="task-deadline '+dlClass+'">📅 '+fmtDate(t.deadline)+'</span>':'';
+  const prioHtml='<span class="priority-badge '+(PRIO_CLASS[t.priority]||'p-mid')+'">'+(PRIO_LABEL[t.priority]||'Середній')+'</span>';
+  const descHtml=t.desc?'<div style="font-size:12px;color:var(--text-muted);margin-top:4px">'+t.desc+'</div>':'';
+  const driveLinkHtml=t.driveLink?'<div style="font-size:11px;margin-top:4px">📁 <a href="'+t.driveLink+'" target="_blank" style="color:var(--blue-bright);text-decoration:none">Документ Google Drive</a></div>':'';
+  const checkClass='task-check'+(t.status==='done'?' done':'');
+  const titleClass='task-title'+(t.status==='done'?' done':'');
+  return '<div class="task-item">'
+    +'<div class="'+checkClass+'" onclick="_toggleTask(''+t.id+'')">'+(t.status==='done'?'✓':'')+'</div>'
+    +'<div class="task-body">'
+    +'<div class="'+titleClass+'">'+t.title+'</div>'
+    +'<div class="task-meta">'+companyHtml+assigneeHtml+deadlineHtml+prioHtml+'</div>'
+    +descHtml+driveLinkHtml
+    +'</div>'
+    +'<div class="task-actions">'
+    +'<button class="btn btn-sm" onclick="_editTask(''+t.id+'')" title="Редагувати">✏️</button>'
+    +'<button class="btn btn-sm btn-red" onclick="_deleteTask(''+t.id+'')" title="Видалити">🗑</button>'
+    +'</div>'
+    +'</div>';
 }
 
 window._toggleTask=async function(id){
   if(!tasks[id])return;
   tasks[id].status=tasks[id].status==='done'?'todo':'done';
   tasks[id].completedAt=tasks[id].status==='done'?new Date().toISOString():'';
-  await set(ref(db,`tasks/${id}`),tasks[id]);
+  await set(ref(db,'tasks/'+id),tasks[id]);
   showSync();renderTasks();
 };
 
 window._deleteTask=async function(id){
   if(!confirm('Видалити задачу?'))return;
   delete tasks[id];
-  await remove(ref(db,`tasks/${id}`));
+  await remove(ref(db,'tasks/'+id));
   showSync();renderTasks();
 };
 
@@ -758,7 +782,7 @@ window.saveTask=async function(){
   };
   const id=editingTaskId||uid();
   tasks[id]={...taskData,id};
-  await set(ref(db,`tasks/${id}`),taskData);
+  await set(ref(db,'tasks/'+id),taskData);
   showSync();closeTaskModal();renderTasks();
 };
 
@@ -799,10 +823,10 @@ window.importJSON=function(ev){
       if(data.companies){
         COMPANIES.forEach(c=>{
           const rec=data.companies[c.code];
-          if(rec){state[c.id]={track:rec.track||'new',level:rec.level||0,lastDate:rec.lastDate||'',deadline:rec.deadline||'',nextStep:rec.nextStep||'',logs:rec.logs||[]};updates[`companies/${c.id}`]=state[c.id]}
+          if(rec){state[c.id]={track:rec.track||'new',level:rec.level||0,lastDate:rec.lastDate||'',deadline:rec.deadline||'',nextStep:rec.nextStep||'',logs:rec.logs||[]};updates['companies/'+c.id]=state[c.id]}
         });
       }
-      if(data.tasks){Object.entries(data.tasks).forEach(([id,t])=>{tasks[id]=t;updates[`tasks/${id}`]=t})}
+      if(data.tasks){Object.entries(data.tasks).forEach(function(entry){var tid=entry[0];var t=entry[1];tasks[tid]=t;updates['tasks/'+tid]=t;})}
       await update(ref(db),updates);
       showSync();render();renderTasks();
       alert('Дані імпортовано!');
