@@ -433,29 +433,28 @@ const app=initializeApp(firebaseConfig);
 const db=getDatabase(app);
 
 const COMPANIES=[
-  {id:'1',name:'ДК №4',full:'ПрАТ «Домобудівний комбінат №4»',code:'05503160',share:30.0},
-  {id:'2',name:'Будмеханізація',full:'ПАТ «Будмеханізація»',code:'04012767',share:12.82},
-  {id:'3',name:'Трест Київспецбуд',full:'ПрАТ «Трест Київспецбуд»',code:'04012744',share:25.0},
-  {id:'4',name:'ЕМЗ Металіст',full:'ПрАТ «ЕМЗ «Металіст»',code:'05309512',share:30.0},
-  {id:'5',name:'Асфальтобетонний завод',full:'ПрАТ «Асфальтобетонний завод»',code:'04012425',share:30.0},
-  {id:'6',name:'Київопорядкомплект',full:'ПрАТ «Київопорядкомплект»',code:'05503326',share:10.1},
-  {id:'7',name:'ПТІ Київоргбуд',full:'ПАТ «ПТІ Київоргбуд»',code:'04012951',share:36.423},
-  {id:'8',name:'Трест КМБ-6',full:'ПрАТ «Трест «Київміськбуд-6»',code:'04012885',share:30.0},
-  {id:'9',name:'ДОК №7',full:'ПрАТ «Деревообробний комбінат №7»',code:'30531566',share:25.0},
-  {id:'10',name:'Київпідземшляхбуд-2',full:'ПрАТ «Трест Київпідземшляхбуд-2»',code:'04012721',share:20.892},
-  {id:'11',name:'Упр. спец. машин',full:'ПАТ «Управління спеціальних машин»',code:'04012916',share:29.743},
-  {id:'12',name:'Київелектромонтаж',full:'ПАТ «Київелектромонтаж»',code:'04012750',share:26.0},
-  {id:'13',name:'Тайга',full:'ПрАТ «Тайга»',code:'13685175',share:30.0},
-  {id:'14',name:'АТП-1',full:'ПрАТ «АТП-1»',code:'03746384',share:30.0},
-  {id:'15',name:'АТП-7',full:'ВАТ «АТП-7»',code:'05503390',share:29.998},
-  {id:'16',name:'Жуляни',full:'ПАТ «Жуляни»',code:'04012170',share:30.0},
-  {id:'17',name:'Буд.Транс',full:'ПрАТ «Буд.Транс»',code:'32250695',share:30.0},
-  {id:'18',name:'Експ.-мех. завод',full:'ПАТ «Експериментально-механічний завод»',code:'05503266',share:30.0},
-  {id:'19',name:'АТП-2',full:'ПрАТ «АТП-2»',code:'04012520',share:30.0},
-  {id:'20',name:'Київбуддеталькомплект',full:'ПрАТ «Київбуддеталькомплект»',code:'04012419',share:29.998},
-  {id:'21',name:'Інвест. технології',full:'ВАТ «ІНВЕСТИЦІЙНІ ТЕХНОЛОГІЇ»',code:'36424605',share:30.65},
-];
-const FOLDERS=['01_Статутні_документи','02_Листи-вимоги','03_Відповіді','04_Скарги_НКЦПФР','05_Суд','06_Отримані_документи','07_Аналітика'];
+  {id:'1',name:'ДК №4',full:'ПрАТ «Домобудівний комбінат №4»',code:'05503160',share:30.0,driveId:'1UsT3Ci9cLlyv4GCO19y8yydgR4Cvy3cE'},
+  {id:'2',name:'Будмеханізація',full:'ПАТ «Будмеханізація»',code:'04012767',share:12.82,driveId:'1qGjAx3C1lCjB8yKLv0_KvNMFzOmkTf7T'},
+  {id:'3',name:'Трест Київспецбуд',full:'ПрАТ «Трест Київспецбуд»',code:'04012744',share:25.0,driveId:'1JbHQ9XGJ5zQHqhR7Af8goHISbrW8fSHq'},
+  {id:'4',name:'ЕМЗ Металіст',full:'ПрАТ «ЕМЗ «Металіст»»',code:'05309512',share:30.0,driveId:'1KCNgcTFk5BvctwqkV_NnAGZLJ4Pyw6_4'},
+  {id:'5',name:'Асфальтобетонний завод',full:'ПрАТ «Асфальтобетонний завод»',code:'04012425',share:30.0,driveId:'12xlu3XZCTsENT5kJCTL1v4M85_2wMeL3'},
+  {id:'6',name:'Київопорядкомплект',full:'ПрАТ «Київопорядкомплект»',code:'05503326',share:10.1,driveId:'1rfFRcTy7tOdjwyJhmsbIha8UAfgaxzqz'},
+  {id:'7',name:'ПТІ Київоргбуд',full:'ПАТ «ПТІ Київоргбуд»',code:'04012951',share:36.423,driveId:'1I7o1cp_13vOdai6NIiiujL6wILhVNMDi'},
+  {id:'8',name:'Трест КМБ-6',full:'ПрАТ «Трест «Київміськбуд-6»»',code:'04012885',share:30.0,driveId:'1mL6yEY_QuMNsa4VslqO08f2JHdqMyHOg'},
+  {id:'9',name:'ДОК №7',full:'ПрАТ «Деревообробний комбінат №7»',code:'30531566',share:25.0,driveId:'13eUuZExKjKGYMURx6mbzgS_6yrAN4Z9q'},
+  {id:'10',name:'Київпідземшляхбуд-2',full:'ПрАТ «Трест Київпідземшляхбуд-2»',code:'04012721',share:20.892,driveId:'1dpOsAfnhtEoptzZqUgdXOrHBDT_z7tjV'},
+  {id:'11',name:'Упр. спец. машин',full:'ПАТ «Управління спеціальних машин»',code:'04012916',share:29.743,driveId:'1VHRn8LN3Pd2xO9KAx5UrQV-GZ13xCRjI'},
+  {id:'12',name:'Київелектромонтаж',full:'ПАТ «Київелектромонтаж»',code:'04012750',share:26.0,driveId:'1C1Q249quJUSsu2uyfH_zPqMb_TkD2iD4'},
+  {id:'13',name:'Тайга',full:'ПрАТ «Тайга»',code:'13685175',share:30.0,driveId:'1xrVX4X3YqLmOfDKAlcddjRWLATCEs7SI'},
+  {id:'14',name:'АТП-1',full:'ПрАТ «АТП-1»',code:'03746384',share:30.0,driveId:'1xQ_FKfwmG7oYtTWbGodr2oVraOBU0KO8'},
+  {id:'15',name:'АТП-7',full:'ВАТ «АТП-7»',code:'05503390',share:29.998,driveId:'1DdTrcXIblMH_2Le5w_ODN_6haAc62sTo'},
+  {id:'16',name:'Жуляни',full:'ПАТ «Жуляни»',code:'04012170',share:30.0,driveId:'19VfBN3seexn0Uex_2YyWmjUzHkawU-aC'},
+  {id:'17',name:'Буд.Транс',full:'ПрАТ «Буд.Транс»',code:'32250695',share:30.0,driveId:'1thFpO7waxCHCKKPVicXOgGlNovH2R4ZH'},
+  {id:'18',name:'Експ.-мех. завод',full:'ПАТ «Експериментально-механічний завод»',code:'05503266',share:30.0,driveId:'1tp5p-Zpg7J-JlDSKftZsT_38WAeYRck8'},
+  {id:'19',name:'АТП-2',full:'ПрАТ «АТП-2»',code:'04012520',share:30.0,driveId:'183VKxGr3FbD8c1RMAcyHIBD3PHkAGEYX'},
+  {id:'20',name:'Київбуддеталькомплект',full:'ПрАТ «Київбуддеталькомплект»',code:'04012419',share:29.998,driveId:'1-oB-CwdUHeHvAdmtUy5CCPCLHr09xdxi'},
+  {id:'21',name:'Інвест. технології',full:'ВАТ «ІНВЕСТИЦІЙНІ ТЕХНОЛОГІЇ»',code:'36424605',share:30.65,driveId:'1pF48oxCakkbeXoYsf7y5B8SL3I3p6vBT'},
+];const FOLDERS=['01_Статутні_документи','02_Листи-вимоги','03_Відповіді','04_Скарги_НКЦПФР','05_Суд','06_Отримані_документи','07_Аналітика'];
 const TYPE_LABEL={letter:'Лист',reply:'Відповідь',complaint:'Скарга НКЦПФР',audit:'Аудит',note:'Нотатка'};
 const TYPE_CLASS={letter:'lt-letter',reply:'lt-reply',complaint:'lt-complaint',audit:'lt-audit',note:'lt-note'};
 const TRACK_LABEL={new:'Новий',a:'Трек А',b:'Трек Б',v:'Трек В'};
@@ -568,10 +567,10 @@ window._openDetail=function(id){
     <div class="next-box"><div class="next-box-label">Наступний крок</div>${st.nextStep||'Відправити Лист №1'}</div>
     <div class="detail-actions">
       <button class="btn btn-blue btn-sm" onclick="closeDetail();_openAddEvent('${id}')">+ Додати подію</button>
-      <a href="https://drive.google.com/drive/search?q=${encodeURIComponent(c.full)}" target="_blank" style="text-decoration:none"><button class="btn btn-sm">📁 Google Drive</button></a>
+      <a href="https://drive.google.com/drive/folders/${c.driveId}" target="_blank" style="text-decoration:none"><button class="btn btn-sm">📁 Google Drive</button></a>
     </div>
     <div class="section-label">Структура папки Google Drive</div>
-    <div class="drive-folders">${FOLDERS.map(f=>`<div class="drive-folder">📁 ${f}</div>`).join('')}</div>
+    <div class="drive-folders">${FOLDERS.map(f=>`<a href="https://drive.google.com/drive/folders/${c.driveId}" target="_blank" style="text-decoration:none"><div class="drive-folder" style="cursor:pointer">📁 ${f}</div></a>`).join('')}</div>
     <div class="section-label">Журнал подій</div>
     <div id="logsContainer">${logs.length?logs.map((l,ri)=>{const i=(st.logs||[]).length-1-ri;return renderLogItem(l,id,i)}).join(''):'<div style="font-size:13px;color:var(--text-muted);padding:8px 0">Подій ще немає.</div>'}</div>`;
   document.getElementById('detailModal').classList.add('open');
