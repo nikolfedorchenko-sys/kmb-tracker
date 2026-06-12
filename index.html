@@ -588,7 +588,7 @@ window._openDetail=function(id){
       <a href="https://drive.google.com/drive/folders/${c.driveId}" target="_blank" style="text-decoration:none"><button class="btn btn-sm">📁 Google Drive</button></a>
     </div>
     <div class="section-label">Структура папки Google Drive</div>
-    <div class="drive-folders">${FOLDERS.map(f=>`<a href="https://drive.google.com/drive/folders/${c.driveId}" target="_blank" style="text-decoration:none"><div class="drive-folder" style="cursor:pointer">📁 ${f}</div></a>`).join('')}</div>
+    <div class="drive-folders">${buildSubFolders(c)}</div>
     <div class="section-label">Журнал подій</div>
     <div id="logsContainer">${logs.length?logs.map((l,ri)=>{const i=(st.logs||[]).length-1-ri;return renderLogItem(l,id,i)}).join(''):'<div style="font-size:13px;color:var(--text-muted);padding:8px 0">Подій ще немає.</div>'}</div>`;
   document.getElementById('detailModal').classList.add('open');
