@@ -433,27 +433,27 @@ const app=initializeApp(firebaseConfig);
 const db=getDatabase(app);
 
 const COMPANIES=[
-  {id:'1',name:'ДК №4',full:'ПрАТ «Домобудівний комбінат №4»',code:'05503160',share:30.0,driveId:'1UsT3Ci9cLlyv4GCO19y8yydgR4Cvy3cE',sub:{_01:'1VHisNASeq9lQrwSaGMpns0-kcvcQAoVf',_02:'1QTLNntNOMyRFh49RhdOXZqf8I2b7OXQT',_03:'175swNxt77H9fMSyd_b7lyYcha4usBwsv',_04:'1ZFRJ-G2Q23AUeMLq3g7lpJbTpXvrJ1u0',_05:'186ZH9L0wpS91Wj5XxYItXGaQrURNKxaj',_06:'1lYpu54oTGU6gyKVw9EeECOEkq38pXr40',_07:'1zLcEI3sPXMcHxTL1a2QGMVapZBIv9wZ8'}},
-  {id:'2',name:'Будмеханізація',full:'ПАТ «Будмеханізація»',code:'04012767',share:12.82,driveId:'1qGjAx3C1lCjB8yKLv0_KvNMFzOmkTf7T',sub:{_01:'1o13BmQZOpGoQ4hMwFv5KUSrcTh8swIvd',_02:'1mNKQvQ_atTUNRNUSe1vCXca_5lPt-G-8',_03:'1UxtzZoJVQPSbZ4LZGIFqs6rDuia45qsw',_04:'1YDRuglj5lNvfwjsr44Z_V-RYkysR7TXD',_05:'166xWBTpQLBxBQba8rludjdFFQwQBI0Ja',_06:'1eygjy7k_qIHU_igDcTwGOXb3ZQmwKcN3',_07:'1zctUbdgPpFjS7rluhJ6QeQDmVhxOUYDT'}},
-  {id:'3',name:'Трест Київспецбуд',full:'ПрАТ «Трест Київспецбуд»',code:'04012744',share:25.0,driveId:'1JbHQ9XGJ5zQHqhR7Af8goHISbrW8fSHq',sub:{_01:'1GKCzGn1PB3JGTyUQxCygh4ceelfWFvOj',_02:'1-3L4UJ9OoOXFnRzPwu_vO66y6UEi1igl',_03:'1w5aEFgxfzru0UEghURrjJiivgYqDC4_O',_04:'134MM6BGEg-9jOgKyjNYhK9qRS5Y8Sq07',_05:'17DMagUtrgIJeFSf5P4GthPh0Ml1IH-cE',_06:'105Hc3LNmSBW-K-dlu1W92Be4LF6gD6lZ',_07:'1PBkpQONjNvZtYgz4SsxYCizc6dHTRtiy'}},
-  {id:'4',name:'ЕМЗ Металіст',full:'ПрАТ «ЕМЗ «Металіст»»',code:'05309512',share:30.0,driveId:'1KCNgcTFk5BvctwqkV_NnAGZLJ4Pyw6_4',sub:{_01:'1uh25FE9VNNVQShLqyqAK0CCMEH3GMw-m',_02:'1dGSktPNA69xhBZ3uc7JIjXKVpDHU5Bw-',_03:'1ZVZw2GBJjiLIVRaTc0tTa2a9C6nnilaF',_04:'1_sKO2h6cmwZiZ_1sVpr08jaEZVoAQKiF',_05:'1umHtO9ortt1ps4ETg3Q2_Wr82yCJ7SzW',_06:'16qo4eT1mPYWB1QugsuMSrK-XNJCVn3XT',_07:'1NKyv2woXui_GM_5QK-Yl0Yq-2zm2c-6k'}},
-  {id:'5',name:'Асфальтобетонний завод',full:'ПрАТ «Асфальтобетонний завод»',code:'04012425',share:30.0,driveId:'12xlu3XZCTsENT5kJCTL1v4M85_2wMeL3',sub:{_01:'1pctQolHEoghySrTpYqmc8WXXLsB7oX9s',_02:'1M2VflMAkD31l5j8VLgxwSzkAtVogZ8wN',_03:'1TAFPMTIARqUBayih_ZSdkbsGIeiGE7cX',_04:'16Xl6g_dA4RW0N6W0eGf6yb98sIjPrgXt',_05:'18BarfJf5fqeP7xeGXy8yqqlanZZNQQzj',_06:'1g9VykwucVtODHtP7Smi1qA5waHlG9tpu',_07:'1LjaEcGHDQI3tx5l5LZipuiwY8BzH1sps'}},
-  {id:'6',name:'Київопорядкомплект',full:'ПрАТ «Київопорядкомплект»',code:'05503326',share:10.1,driveId:'1rfFRcTy7tOdjwyJhmsbIha8UAfgaxzqz',sub:{_01:'1Rum6Ix_mgNA-2LYngt1BtkvzqKYAWv_8',_02:'13l-y6FEMDm_QsdOzFJ4472SBBaWsNk8G',_03:'1f1w1DHoANMWDMhlHbY0x6bDW76oi6Rhm',_04:'1AXCwzMZ6iNNYxOCjcqaE2Mp_8CDDF-N0',_05:'11qAxUJqAIfRDnqT1-oWyCb7zHkRYjcMf',_06:'1U1FmGkCOePGJPRmuRL6RFnzsHfUz3C9K',_07:'1Y12kRl5KASJd7rSp9Miohw0DypfGnIcM'}},
-  {id:'7',name:'ПТІ Київоргбуд',full:'ПАТ «ПТІ Київоргбуд»',code:'04012951',share:36.423,driveId:'1I7o1cp_13vOdai6NIiiujL6wILhVNMDi',sub:{_01:'1xgl3ndLL8MuKadvRTiCXtEttbbHnvSdQ',_02:'1f3JqQhgi6yKh_XM_K7-Mq3B8iNw47nHF',_03:'1zeHBxTBSF2AEMi6FvRiz_fUyM1BLjM_d',_04:'1lJwb0YSbElD2IwHbCukAvGzox84QVpom',_05:'1E3orelodn04GV-gU_qrHWMubfr6Yf94B',_06:'1QowyPkE4NN-IlJ0EpCb6H6hyImaBc_Ln',_07:'1G2LHgx-uAqC5tL1U0zsR-rmRwujOt9F0'}},
-  {id:'8',name:'Трест КМБ-6',full:'ПрАТ «Трест «Київміськбуд-6»»',code:'04012885',share:30.0,driveId:'1mL6yEY_QuMNsa4VslqO08f2JHdqMyHOg',sub:{_01:'1LaaARF8PvrRrX1M71aNufARumR-8dbmG',_02:'1Uxu8iuhlVWvEcs5w-KKuV8cnpPWdT4r6',_03:'14zP9E2j8bY0bvOLQeTmevJqVN53gLZDY',_04:'1AWBAGOEcQyR9zRJyZLHbI3ZWB0eBnCRr',_05:'14n1n-TQlFkjGsFy5ibNU-kvDT9Vnu0WX',_06:'1bHX57veI-Po_udMRC4nbCYeizvwI6Ku5',_07:'1_0P_694qcOZkFBbnQpURTPTaXTbZ0G2G'}},
-  {id:'9',name:'ДОК №7',full:'ПрАТ «Деревообробний комбінат №7»',code:'30531566',share:25.0,driveId:'13eUuZExKjKGYMURx6mbzgS_6yrAN4Z9q',sub:{_01:'1K80_AuCTM0Q9uk6KwY8Pzo0bZExps5Wp',_02:'1wuG9ZrDlmkYk5uiIai9Z126O0ZN3epzS',_03:'1Xt47_9QtXi8UObCvXRsprieaIhHIHSEi',_04:'140RFpqZgS3aS0SBFl2jp3Uku4CMDY7_z',_05:'1JEoNfeDYxA-IBoLxo78Du5y5ilUK9Rrs',_06:'1MHcDDwv8hU3zWKVltJ4EX_aiWlGPgHRy',_07:'1qWyGEg9U5ja17F8vYZUDvwM9c0sbAGg9'}},
-  {id:'10',name:'Київпідземшляхбуд-2',full:'ПрАТ «Трест Київпідземшляхбуд-2»',code:'04012721',share:20.892,driveId:'1dpOsAfnhtEoptzZqUgdXOrHBDT_z7tjV',sub:{_01:'1aH6f3IdJJNRUgoz2MDtwOebOL65ENkRw',_02:'1DdlTDT9xgtfrUsEvwbgBCOIG6iBf5Frd',_03:'17jB3rp5VpGcQg6Zr39WVVx9lu07x_Rf6',_04:'1GVBpmZRImeys_pzIYOj0RPw5LDA8zXX1',_05:'1m_LUdBDw4WC3KXoP7K-ytsxgjO--wMUZ',_06:'1tWDVC2Dm7TjaoW7zQfdDuZUI-dJVG11D',_07:'1_0xv29pgwt6bxMWgm_tlW2Gio-Dkpxc_'}},
-  {id:'11',name:'Упр. спец. машин',full:'ПАТ «Управління спеціальних машин»',code:'04012916',share:29.743,driveId:'1VHRn8LN3Pd2xO9KAx5UrQV-GZ13xCRjI',sub:{_01:'1mBjR_8Dc5ZKiTvXjnei0rO6bY46MbWs3',_02:'1y6QVkc0TQHktvGwZn4Aef2FVGDdp9M7j',_03:'1GvEdg8FG0NztlUKA28OEfnW8UZP1xPC_',_04:'1MTzZsZlLVEdOoknhQvw1w1-E6HTNZsun',_05:'1O6yZN1kHjQEf0a-AHo-1kbhOM7z1W8a8',_06:'1cJy0ixRpe5sRY4JvYMoHrXQY-GfzeC_k',_07:'14vIJi5lBfePwUBqNN32TPrxNe8d8fywe'}},
-  {id:'12',name:'Київелектромонтаж',full:'ПАТ «Київелектромонтаж»',code:'04012750',share:26.0,driveId:'1C1Q249quJUSsu2uyfH_zPqMb_TkD2iD4',sub:{_01:'1brPi8kk_uLyEkdslna1-qESY-WU6F9Th',_02:'1hc3LAEfrCLMdzRz6c6fxufB6ha3w1oX_',_03:'1kQzp0vujI2eEm1n8U3Du3olwbzhHmNub',_04:'1x8f0I-wN_MAQ79SF3-oe9jVi_Ujk9N8a',_05:'17RsND8AWUwd2KPSS60SmmAiZapLQS5iW',_06:'1xMWrh1MpK5WzLaFFk3n96-rVRgL28O-3',_07:'11YD-d0eOcHfi9Ml8KMJct5jf2e8NC4F2'}},
-  {id:'13',name:'Тайга',full:'ПрАТ «Тайга»',code:'13685175',share:30.0,driveId:'1xrVX4X3YqLmOfDKAlcddjRWLATCEs7SI',sub:{_01:'13W9ZjlLNNlzVgxn17t43L1mKB_bNFRiV',_02:'1HnjpwSGPOsOwCKhcBks-B0Us7IFfe4ue',_03:'1pMhSDZ_KSycfxXCm6XSliD_914CmlDh8',_04:'1DAudA2yRlwE-3LfSK3n03XWgjzQN8sCB',_05:'1IhMI5kwW7C8I8g-94_I4yj7RMtwuDwvi',_06:'1fdBvMldInY7JBAVL1kSI2oXPVoT00ght',_07:'1t5uSQXzv3HGbyUukVNvm1opBF0PF0zf4'}},
-  {id:'14',name:'АТП-1',full:'ПрАТ «АТП-1»',code:'03746384',share:30.0,driveId:'1xQ_FKfwmG7oYtTWbGodr2oVraOBU0KO8',sub:{_01:'1iVj3AxalWi36VRdTDavU38GB5UCAVQmz',_02:'1A2fU7yd5_6j3gu8xks94QL2t_vT8ARH9',_03:'1A7X3QTacjHNbtKP14oHo_LJASTjOQObO',_04:'1HRNOK1fkPmfD7BPaR-cmnoDcSq-zWQhI',_05:'170W_Yv7zukS1s-zTK26AtQjlGMbjFr4q',_06:'1vRPY98D0VmHFCShXz-C8asYr4Y_jQUaX',_07:'1bh8dryshqNZ1PDo2ABZsEOIf-R_zWY-D'}},
-  {id:'15',name:'АТП-7',full:'ВАТ «АТП-7»',code:'05503390',share:29.998,driveId:'1DdTrcXIblMH_2Le5w_ODN_6haAc62sTo',sub:{_01:'1M2mj3QOTQ7kCCTqGshihSlMLAYpTvLey',_02:'1jiZCpPOt_0WsfVSXnFzBKcPQpylczd9M',_03:'1E11kPUHBOwyFsJeqPBPhMkNVUJh-PyhE',_04:'1G8SLPBjj7byQGD2zaco6FYPzOMrb5jy5',_05:'1McwemHsMvY3a2OccdEvrwSrPEk0mQ4KV',_06:'1T5bhjY_pMC82cKU-7b7hLdINN6RjuVVj',_07:'1nlvMiGjCwLWsfyOQf1PzzGu0ylB23rPP'}},
-  {id:'16',name:'Жуляни',full:'ПАТ «Жуляни»',code:'04012170',share:30.0,driveId:'19VfBN3seexn0Uex_2YyWmjUzHkawU-aC',sub:{_01:'1Uc3nc7ZBQs5pJ5VGdhsjwpwKoyN9Ym76',_02:'1CIjdIqb70x7vbCvBBAAvucaDKFP0FVOA',_03:'1qAfV_4jzR8ZZfEdYDYh7P3KMUoomETJI',_04:'1E2ogbEPzW5lXNPrPSrGTjmO59D8uoMmS',_05:'1TGaId4z34nG3Kw5Dcm7KHfHraGoQE8Jv',_06:'13z7VYO4lYqDqgAgrkXm_nk_cnUPnXr-A',_07:'1zDgu87qPWOO1iIHenhP_u-eFOqdTH7v4'}},
-  {id:'17',name:'Буд.Транс',full:'ПрАТ «Буд.Транс»',code:'32250695',share:30.0,driveId:'1thFpO7waxCHCKKPVicXOgGlNovH2R4ZH',sub:{_01:'1Q9K3bzqVWOUOicxgZTnZDsRT9mEIzKtt',_02:'1NQTq8YA0RxOZ8o4a0kJ8A0qpg94D1XYr',_03:'1Wvldy0Fd8Taf5Z3jKk-JTLX5a2XWQq2a',_04:'1PSuavs3B5AaFSPpKt4PdFBGSZ_H9peqj',_05:'1vNdiy92cIRYY9Csl7VZcVGDnBrIo7sTC',_06:'1cyz7zy-6HIB0cYo6zhoFH_0HcPDrAymL',_07:'1Xnr1_ILmg4Eb-i_Jhtiz0FJNJCReaauI'}},
-  {id:'18',name:'Експ.-мех. завод',full:'ПАТ «Експериментально-механічний завод»',code:'05503266',share:30.0,driveId:'1tp5p-Zpg7J-JlDSKftZsT_38WAeYRck8',sub:{_01:'1Qmy-_SKbzxQ9KfIWbvC3FUR6k9dJ_pFf',_02:'1sHTSzfXxgMZaN5y6aDfjp_lw__VEEOR5',_03:'1fMLIfoRbsthuCOZlisAezy1nI9sdCZDw',_04:'1hrArbMIoFizb2QdcONdCZFgYnly3fScK',_05:'1VdzN2eEHKCIGSyWBMFGcYXysqI5GE7U5',_06:'1Q3VPIVxCOxS5p-vtmBVxLEWPxAPY_tbW',_07:'1zEH9yVoHo-VgqCFoVE4aBmjsGV7E-Lz9'}},
-  {id:'19',name:'АТП-2',full:'ПрАТ «АТП-2»',code:'04012520',share:30.0,driveId:'183VKxGr3FbD8c1RMAcyHIBD3PHkAGEYX',sub:{_01:'1SC6q4bDMWIOWzzlcdAExHTJLt3sjNq9b',_02:'1Fg23vRsdaygmLBmkAQnZro6pyT_zEaNQ',_03:'1VshGHIfpQ50mb98YTF6eDni3kAoFGd5f',_04:'15EEV19l4-ItSZCQmEFw5ULaQci5WPkmP',_05:'1U4b98lA6LKebQSfkHaa0skwZ7EPf8uWn',_06:'1C04mfKJqzRGVXiiUXD322key6--6iZd-',_07:'1E6vZJnFXyNr0NY4YRuxQzvd8Hj1IUsqK'}},
-  {id:'20',name:'Київбуддеталькомплект',full:'ПрАТ «Київбуддеталькомплект»',code:'04012419',share:29.998,driveId:'1-oB-CwdUHeHvAdmtUy5CCPCLHr09xdxi',sub:{_01:'1tLTlEoXGkix34nwCZyU2SeOLaCO32p5O',_02:'1_Zu1m5zwosRH1-2VpwqmvbM81m2yLyw8',_03:'10xs_6QxOtp24RLL5Yn94bvZx1pvrfaYQ',_04:'1OIIv4MQdOm3kuXFAW897GzOHzqQGo7Ms',_05:'1W7lJeBFtjliDsBh_ngCqxDLQKzIbQBfl',_06:'1DAxFqLpeIsy9XSPc3MQn6Qxmd9l559CW',_07:'18E9yODExj7v1BFA_EmuMf6w39rIQBjRQ'}},
-  {id:'21',name:'Інвест. технології',full:'ВАТ «ІНВЕСТИЦІЙНІ ТЕХНОЛОГІЇ»',code:'36424605',share:30.65,driveId:'1pF48oxCakkbeXoYsf7y5B8SL3I3p6vBT',sub:{_01:'1MAppAc9Z39VKSHu9S1d-toGlLukyTM46',_02:'1jb2Ho2z9C1hPW-qs8I_C9vBHTrVJvtOv',_03:'1W9dGUheauWSqcSR1PDXnxaFb-lSd7SUu',_04:'13MddYl0s2DL2_1fXLc-L8NgMbu85E9aA',_05:'1qpypc9k_iFktrakrm4AX0_EwqlQ4HFNP',_06:'1ad7wTyfep_O9jQueTlHkG9MIjrZura4Q',_07:'1BhPhM-eR0gZm9Qt_3r1FZCAggusnQKKK'}},
+  {id:'1',name:'ДК №4',full:'ПрАТ «Домобудівний комбінат №4»',code:'05503160',share:30.0,driveId:'1UsT3Ci9cLlyv4GCO19y8yydgR4Cvy3cE',sub:{f01:'1VHisNASeq9lQrwSaGMpns0-kcvcQAoVf',f02:'1QTLNntNOMyRFh49RhdOXZqf8I2b7OXQT',f03:'175swNxt77H9fMSyd_b7lyYcha4usBwsv',f04:'1ZFRJ-G2Q23AUeMLq3g7lpJbTpXvrJ1u0',f05:'186ZH9L0wpS91Wj5XxYItXGaQrURNKxaj',f06:'1lYpu54oTGU6gyKVw9EeECOEkq38pXr40',f07:'1zLcEI3sPXMcHxTL1a2QGMVapZBIv9wZ8'}},
+  {id:'2',name:'Будмеханізація',full:'ПАТ «Будмеханізація»',code:'04012767',share:12.82,driveId:'1qGjAx3C1lCjB8yKLv0_KvNMFzOmkTf7T',sub:{f01:'1o13BmQZOpGoQ4hMwFv5KUSrcTh8swIvd',f02:'1mNKQvQ_atTUNRNUSe1vCXca_5lPt-G-8',f03:'1UxtzZoJVQPSbZ4LZGIFqs6rDuia45qsw',f04:'1YDRuglj5lNvfwjsr44Z_V-RYkysR7TXD',f05:'166xWBTpQLBxBQba8rludjdFFQwQBI0Ja',f06:'1eygjy7k_qIHU_igDcTwGOXb3ZQmwKcN3',f07:'1zctUbdgPpFjS7rluhJ6QeQDmVhxOUYDT'}},
+  {id:'3',name:'Трест Київспецбуд',full:'ПрАТ «Трест Київспецбуд»',code:'04012744',share:25.0,driveId:'1JbHQ9XGJ5zQHqhR7Af8goHISbrW8fSHq',sub:{f01:'1GKCzGn1PB3JGTyUQxCygh4ceelfWFvOj',f02:'1-3L4UJ9OoOXFnRzPwu_vO66y6UEi1igl',f03:'1w5aEFgxfzru0UEghURrjJiivgYqDC4_O',f04:'134MM6BGEg-9jOgKyjNYhK9qRS5Y8Sq07',f05:'17DMagUtrgIJeFSf5P4GthPh0Ml1IH-cE',f06:'105Hc3LNmSBW-K-dlu1W92Be4LF6gD6lZ',f07:'1PBkpQONjNvZtYgz4SsxYCizc6dHTRtiy'}},
+  {id:'4',name:'ЕМЗ Металіст',full:'ПрАТ «ЕМЗ «Металіст»»',code:'05309512',share:30.0,driveId:'1KCNgcTFk5BvctwqkV_NnAGZLJ4Pyw6_4',sub:{f01:'1uh25FE9VNNVQShLqyqAK0CCMEH3GMw-m',f02:'1dGSktPNA69xhBZ3uc7JIjXKVpDHU5Bw-',f03:'1ZVZw2GBJjiLIVRaTc0tTa2a9C6nnilaF',f04:'1_sKO2h6cmwZiZ_1sVpr08jaEZVoAQKiF',f05:'1umHtO9ortt1ps4ETg3Q2_Wr82yCJ7SzW',f06:'16qo4eT1mPYWB1QugsuMSrK-XNJCVn3XT',f07:'1NKyv2woXui_GM_5QK-Yl0Yq-2zm2c-6k'}},
+  {id:'5',name:'Асфальтобетонний завод',full:'ПрАТ «Асфальтобетонний завод»',code:'04012425',share:30.0,driveId:'12xlu3XZCTsENT5kJCTL1v4M85_2wMeL3',sub:{f01:'1pctQolHEoghySrTpYqmc8WXXLsB7oX9s',f02:'1M2VflMAkD31l5j8VLgxwSzkAtVogZ8wN',f03:'1TAFPMTIARqUBayih_ZSdkbsGIeiGE7cX',f04:'16Xl6g_dA4RW0N6W0eGf6yb98sIjPrgXt',f05:'18BarfJf5fqeP7xeGXy8yqqlanZZNQQzj',f06:'1g9VykwucVtODHtP7Smi1qA5waHlG9tpu',f07:'1LjaEcGHDQI3tx5l5LZipuiwY8BzH1sps'}},
+  {id:'6',name:'Київопорядкомплект',full:'ПрАТ «Київопорядкомплект»',code:'05503326',share:10.1,driveId:'1rfFRcTy7tOdjwyJhmsbIha8UAfgaxzqz',sub:{f01:'1Rum6Ix_mgNA-2LYngt1BtkvzqKYAWv_8',f02:'13l-y6FEMDm_QsdOzFJ4472SBBaWsNk8G',f03:'1f1w1DHoANMWDMhlHbY0x6bDW76oi6Rhm',f04:'1AXCwzMZ6iNNYxOCjcqaE2Mp_8CDDF-N0',f05:'11qAxUJqAIfRDnqT1-oWyCb7zHkRYjcMf',f06:'1U1FmGkCOePGJPRmuRL6RFnzsHfUz3C9K',f07:'1Y12kRl5KASJd7rSp9Miohw0DypfGnIcM'}},
+  {id:'7',name:'ПТІ Київоргбуд',full:'ПАТ «ПТІ Київоргбуд»',code:'04012951',share:36.423,driveId:'1I7o1cp_13vOdai6NIiiujL6wILhVNMDi',sub:{f01:'1xgl3ndLL8MuKadvRTiCXtEttbbHnvSdQ',f02:'1f3JqQhgi6yKh_XM_K7-Mq3B8iNw47nHF',f03:'1zeHBxTBSF2AEMi6FvRiz_fUyM1BLjM_d',f04:'1lJwb0YSbElD2IwHbCukAvGzox84QVpom',f05:'1E3orelodn04GV-gU_qrHWMubfr6Yf94B',f06:'1QowyPkE4NN-IlJ0EpCb6H6hyImaBc_Ln',f07:'1G2LHgx-uAqC5tL1U0zsR-rmRwujOt9F0'}},
+  {id:'8',name:'Трест КМБ-6',full:'ПрАТ «Трест «Київміськбуд-6»»',code:'04012885',share:30.0,driveId:'1mL6yEY_QuMNsa4VslqO08f2JHdqMyHOg',sub:{f01:'1LaaARF8PvrRrX1M71aNufARumR-8dbmG',f02:'1Uxu8iuhlVWvEcs5w-KKuV8cnpPWdT4r6',f03:'14zP9E2j8bY0bvOLQeTmevJqVN53gLZDY',f04:'1AWBAGOEcQyR9zRJyZLHbI3ZWB0eBnCRr',f05:'14n1n-TQlFkjGsFy5ibNU-kvDT9Vnu0WX',f06:'1bHX57veI-Po_udMRC4nbCYeizvwI6Ku5',f07:'1_0P_694qcOZkFBbnQpURTPTaXTbZ0G2G'}},
+  {id:'9',name:'ДОК №7',full:'ПрАТ «Деревообробний комбінат №7»',code:'30531566',share:25.0,driveId:'13eUuZExKjKGYMURx6mbzgS_6yrAN4Z9q',sub:{f01:'1K80_AuCTM0Q9uk6KwY8Pzo0bZExps5Wp',f02:'1wuG9ZrDlmkYk5uiIai9Z126O0ZN3epzS',f03:'1Xt47_9QtXi8UObCvXRsprieaIhHIHSEi',f04:'140RFpqZgS3aS0SBFl2jp3Uku4CMDY7_z',f05:'1JEoNfeDYxA-IBoLxo78Du5y5ilUK9Rrs',f06:'1MHcDDwv8hU3zWKVltJ4EX_aiWlGPgHRy',f07:'1qWyGEg9U5ja17F8vYZUDvwM9c0sbAGg9'}},
+  {id:'10',name:'Київпідземшляхбуд-2',full:'ПрАТ «Трест Київпідземшляхбуд-2»',code:'04012721',share:20.892,driveId:'1dpOsAfnhtEoptzZqUgdXOrHBDT_z7tjV',sub:{f01:'1aH6f3IdJJNRUgoz2MDtwOebOL65ENkRw',f02:'1DdlTDT9xgtfrUsEvwbgBCOIG6iBf5Frd',f03:'17jB3rp5VpGcQg6Zr39WVVx9lu07x_Rf6',f04:'1GVBpmZRImeys_pzIYOj0RPw5LDA8zXX1',f05:'1m_LUdBDw4WC3KXoP7K-ytsxgjO--wMUZ',f06:'1tWDVC2Dm7TjaoW7zQfdDuZUI-dJVG11D',f07:'1_0xv29pgwt6bxMWgm_tlW2Gio-Dkpxc_'}},
+  {id:'11',name:'Упр. спец. машин',full:'ПАТ «Управління спеціальних машин»',code:'04012916',share:29.743,driveId:'1VHRn8LN3Pd2xO9KAx5UrQV-GZ13xCRjI',sub:{f01:'1mBjR_8Dc5ZKiTvXjnei0rO6bY46MbWs3',f02:'1y6QVkc0TQHktvGwZn4Aef2FVGDdp9M7j',f03:'1GvEdg8FG0NztlUKA28OEfnW8UZP1xPC_',f04:'1MTzZsZlLVEdOoknhQvw1w1-E6HTNZsun',f05:'1O6yZN1kHjQEf0a-AHo-1kbhOM7z1W8a8',f06:'1cJy0ixRpe5sRY4JvYMoHrXQY-GfzeC_k',f07:'14vIJi5lBfePwUBqNN32TPrxNe8d8fywe'}},
+  {id:'12',name:'Київелектромонтаж',full:'ПАТ «Київелектромонтаж»',code:'04012750',share:26.0,driveId:'1C1Q249quJUSsu2uyfH_zPqMb_TkD2iD4',sub:{f01:'1brPi8kk_uLyEkdslna1-qESY-WU6F9Th',f02:'1hc3LAEfrCLMdzRz6c6fxufB6ha3w1oX_',f03:'1kQzp0vujI2eEm1n8U3Du3olwbzhHmNub',f04:'1x8f0I-wN_MAQ79SF3-oe9jVi_Ujk9N8a',f05:'17RsND8AWUwd2KPSS60SmmAiZapLQS5iW',f06:'1xMWrh1MpK5WzLaFFk3n96-rVRgL28O-3',f07:'11YD-d0eOcHfi9Ml8KMJct5jf2e8NC4F2'}},
+  {id:'13',name:'Тайга',full:'ПрАТ «Тайга»',code:'13685175',share:30.0,driveId:'1xrVX4X3YqLmOfDKAlcddjRWLATCEs7SI',sub:{f01:'13W9ZjlLNNlzVgxn17t43L1mKB_bNFRiV',f02:'1HnjpwSGPOsOwCKhcBks-B0Us7IFfe4ue',f03:'1pMhSDZ_KSycfxXCm6XSliD_914CmlDh8',f04:'1DAudA2yRlwE-3LfSK3n03XWgjzQN8sCB',f05:'1IhMI5kwW7C8I8g-94_I4yj7RMtwuDwvi',f06:'1fdBvMldInY7JBAVL1kSI2oXPVoT00ght',f07:'1t5uSQXzv3HGbyUukVNvm1opBF0PF0zf4'}},
+  {id:'14',name:'АТП-1',full:'ПрАТ «АТП-1»',code:'03746384',share:30.0,driveId:'1xQ_FKfwmG7oYtTWbGodr2oVraOBU0KO8',sub:{f01:'1iVj3AxalWi36VRdTDavU38GB5UCAVQmz',f02:'1A2fU7yd5_6j3gu8xks94QL2t_vT8ARH9',f03:'1A7X3QTacjHNbtKP14oHo_LJASTjOQObO',f04:'1HRNOK1fkPmfD7BPaR-cmnoDcSq-zWQhI',f05:'170W_Yv7zukS1s-zTK26AtQjlGMbjFr4q',f06:'1vRPY98D0VmHFCShXz-C8asYr4Y_jQUaX',f07:'1bh8dryshqNZ1PDo2ABZsEOIf-R_zWY-D'}},
+  {id:'15',name:'АТП-7',full:'ВАТ «АТП-7»',code:'05503390',share:29.998,driveId:'1DdTrcXIblMH_2Le5w_ODN_6haAc62sTo',sub:{f01:'1M2mj3QOTQ7kCCTqGshihSlMLAYpTvLey',f02:'1jiZCpPOt_0WsfVSXnFzBKcPQpylczd9M',f03:'1E11kPUHBOwyFsJeqPBPhMkNVUJh-PyhE',f04:'1G8SLPBjj7byQGD2zaco6FYPzOMrb5jy5',f05:'1McwemHsMvY3a2OccdEvrwSrPEk0mQ4KV',f06:'1T5bhjY_pMC82cKU-7b7hLdINN6RjuVVj',f07:'1nlvMiGjCwLWsfyOQf1PzzGu0ylB23rPP'}},
+  {id:'16',name:'Жуляни',full:'ПАТ «Жуляни»',code:'04012170',share:30.0,driveId:'19VfBN3seexn0Uex_2YyWmjUzHkawU-aC',sub:{f01:'1Uc3nc7ZBQs5pJ5VGdhsjwpwKoyN9Ym76',f02:'1CIjdIqb70x7vbCvBBAAvucaDKFP0FVOA',f03:'1qAfV_4jzR8ZZfEdYDYh7P3KMUoomETJI',f04:'1E2ogbEPzW5lXNPrPSrGTjmO59D8uoMmS',f05:'1TGaId4z34nG3Kw5Dcm7KHfHraGoQE8Jv',f06:'13z7VYO4lYqDqgAgrkXm_nk_cnUPnXr-A',f07:'1zDgu87qPWOO1iIHenhP_u-eFOqdTH7v4'}},
+  {id:'17',name:'Буд.Транс',full:'ПрАТ «Буд.Транс»',code:'32250695',share:30.0,driveId:'1thFpO7waxCHCKKPVicXOgGlNovH2R4ZH',sub:{f01:'1Q9K3bzqVWOUOicxgZTnZDsRT9mEIzKtt',f02:'1NQTq8YA0RxOZ8o4a0kJ8A0qpg94D1XYr',f03:'1Wvldy0Fd8Taf5Z3jKk-JTLX5a2XWQq2a',f04:'1PSuavs3B5AaFSPpKt4PdFBGSZ_H9peqj',f05:'1vNdiy92cIRYY9Csl7VZcVGDnBrIo7sTC',f06:'1cyz7zy-6HIB0cYo6zhoFH_0HcPDrAymL',f07:'1Xnr1_ILmg4Eb-i_Jhtiz0FJNJCReaauI'}},
+  {id:'18',name:'Експ.-мех. завод',full:'ПАТ «Експериментально-механічний завод»',code:'05503266',share:30.0,driveId:'1tp5p-Zpg7J-JlDSKftZsT_38WAeYRck8',sub:{f01:'1Qmy-_SKbzxQ9KfIWbvC3FUR6k9dJ_pFf',f02:'1sHTSzfXxgMZaN5y6aDfjp_lw__VEEOR5',f03:'1fMLIfoRbsthuCOZlisAezy1nI9sdCZDw',f04:'1hrArbMIoFizb2QdcONdCZFgYnly3fScK',f05:'1VdzN2eEHKCIGSyWBMFGcYXysqI5GE7U5',f06:'1Q3VPIVxCOxS5p-vtmBVxLEWPxAPY_tbW',f07:'1zEH9yVoHo-VgqCFoVE4aBmjsGV7E-Lz9'}},
+  {id:'19',name:'АТП-2',full:'ПрАТ «АТП-2»',code:'04012520',share:30.0,driveId:'183VKxGr3FbD8c1RMAcyHIBD3PHkAGEYX',sub:{f01:'1SC6q4bDMWIOWzzlcdAExHTJLt3sjNq9b',f02:'1Fg23vRsdaygmLBmkAQnZro6pyT_zEaNQ',f03:'1VshGHIfpQ50mb98YTF6eDni3kAoFGd5f',f04:'15EEV19l4-ItSZCQmEFw5ULaQci5WPkmP',f05:'1U4b98lA6LKebQSfkHaa0skwZ7EPf8uWn',f06:'1C04mfKJqzRGVXiiUXD322key6--6iZd-',f07:'1E6vZJnFXyNr0NY4YRuxQzvd8Hj1IUsqK'}},
+  {id:'20',name:'Київбуддеталькомплект',full:'ПрАТ «Київбуддеталькомплект»',code:'04012419',share:29.998,driveId:'1-oB-CwdUHeHvAdmtUy5CCPCLHr09xdxi',sub:{f01:'1tLTlEoXGkix34nwCZyU2SeOLaCO32p5O',f02:'1_Zu1m5zwosRH1-2VpwqmvbM81m2yLyw8',f03:'10xs_6QxOtp24RLL5Yn94bvZx1pvrfaYQ',f04:'1OIIv4MQdOm3kuXFAW897GzOHzqQGo7Ms',f05:'1W7lJeBFtjliDsBh_ngCqxDLQKzIbQBfl',f06:'1DAxFqLpeIsy9XSPc3MQn6Qxmd9l559CW',f07:'18E9yODExj7v1BFA_EmuMf6w39rIQBjRQ'}},
+  {id:'21',name:'Інвест. технології',full:'ВАТ «ІНВЕСТИЦІЙНІ ТЕХНОЛОГІЇ»',code:'36424605',share:30.65,driveId:'1pF48oxCakkbeXoYsf7y5B8SL3I3p6vBT',sub:{f01:'1MAppAc9Z39VKSHu9S1d-toGlLukyTM46',f02:'1jb2Ho2z9C1hPW-qs8I_C9vBHTrVJvtOv',f03:'1W9dGUheauWSqcSR1PDXnxaFb-lSd7SUu',f04:'13MddYl0s2DL2_1fXLc-L8NgMbu85E9aA',f05:'1qpypc9k_iFktrakrm4AX0_EwqlQ4HFNP',f06:'1ad7wTyfep_O9jQueTlHkG9MIjrZura4Q',f07:'1BhPhM-eR0gZm9Qt_3r1FZCAggusnQKKK'}},
 ];const TYPE_LABEL={letter:'Лист',reply:'Відповідь',complaint:'Скарга НКЦПФР',audit:'Аудит',note:'Нотатка'};
 const TYPE_CLASS={letter:'lt-letter',reply:'lt-reply',complaint:'lt-complaint',audit:'lt-audit',note:'lt-note'};
 const TRACK_LABEL={new:'Новий',a:'Трек А',b:'Трек Б',v:'Трек В'};
@@ -546,46 +546,25 @@ function renderRow(c){
 }
 
 // ── DETAIL ────────────────────────────────────────────────
-
-function renderSubfolders(c){
-  var folders=[
-    {key:'01',label:'01_Статутні_документи'},
-    {key:'02',label:'02_Листи-вимоги'},
-    {key:'03',label:'03_Відповіді'},
-    {key:'04',label:'04_Скарги_НКЦПФР'},
-    {key:'05',label:'05_Суд'},
-    {key:'06',label:'06_Отримані_документи'},
-    {key:'07',label:'07_Аналітика'}
+function buildSubFolders(c){
+  var rows=[
+    ['f01','01_Статутні_документи'],
+    ['f02','02_Листи-вимоги'],
+    ['f03','03_Відповіді'],
+    ['f04','04_Скарги_НКЦПФР'],
+    ['f05','05_Суд'],
+    ['f06','06_Отримані_документи'],
+    ['f07','07_Аналітика']
   ];
-  var html='';
-  for(var i=0;i<folders.length;i++){
-    var fid=(c.sub&&c.sub[folders[i].key])?c.sub[folders[i].key]:c.driveId;
-    html+='<a href="https://drive.google.com/drive/folders/'+fid+'" target="_blank" style="text-decoration:none">'
-      +'<div class="drive-folder" style="cursor:pointer">📁 '+folders[i].label+'</div></a>';
+  var out='';
+  for(var i=0;i<rows.length;i++){
+    var fid=c.sub&&c.sub[rows[i][0]]?c.sub[rows[i][0]]:c.driveId;
+    out+='<a href="https://drive.google.com/drive/folders/'+fid
+        +'" target="_blank" style="text-decoration:none">'
+        +'<div class="drive-folder" style="cursor:pointer">📁 '+rows[i][1]+'</div></a>';
   }
-  return html;
+  return out;
 }
-
-
-function renderSubfolders(c){
-  var folders=[
-    {key:'_01',label:'01_Статутні_документи'},
-    {key:'_02',label:'02_Листи-вимоги'},
-    {key:'_03',label:'03_Відповіді'},
-    {key:'_04',label:'04_Скарги_НКЦПФР'},
-    {key:'_05',label:'05_Суд'},
-    {key:'_06',label:'06_Отримані_документи'},
-    {key:'_07',label:'07_Аналітика'}
-  ];
-  var html='';
-  for(var i=0;i<folders.length;i++){
-    var fid=(c.sub&&c.sub[folders[i].key])?c.sub[folders[i].key]:c.driveId;
-    html+='<a href="https://drive.google.com/drive/folders/'+fid+'" target="_blank" style="text-decoration:none">'
-      +'<div class="drive-folder" style="cursor:pointer">📁 '+folders[i].label+'</div></a>';
-  }
-  return html;
-}
-
 window._openDetail=function(id){
   currentDetailId=id;
   const c=COMPANIES.find(x=>x.id===id);
