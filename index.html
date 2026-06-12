@@ -5,58 +5,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>КМБ — Трекер підприємств</title>
 <style>
-:root{--blue:#1A3A5C;--blue-mid:#1A5276;--blue-light:#D6EAF8;--blue-bright:#2E86C1;--green:#1E8449;--green-light:#D5F5E3;--amber:#854F0B;--amber-light:#FAEEDA;--red:#922B21;--red-light:#FADBD8;--gray:#5F5E5A;--gray-light:#F5F4F0;--gray-border:#E0DDD6;--text:#1A1A18;--text-muted:#6B6A66;--white:#FFFFFF;--radius:8px;--radius-lg:12px}
+:root{--blue:#1A3A5C;--blue-mid:#1A5276;--blue-light:#D6EAF8;--blue-bright:#2E86C1;--green:#1E8449;--green-light:#D5F5E3;--amber:#854F0B;--amber-light:#FAEEDA;--red:#922B21;--red-light:#FADBD8;--purple:#6C3483;--purple-light:#F4ECF7;--gray-light:#F5F4F0;--gray-border:#E0DDD6;--text:#1A1A18;--text-muted:#6B6A66;--white:#FFFFFF;--radius:8px;--radius-lg:12px}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F0EEE8;color:var(--text);font-size:14px;line-height:1.5}
 .app{display:flex;min-height:100vh}
-.sidebar{width:260px;flex-shrink:0;background:var(--blue);color:#fff;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:10}
-.main{margin-left:260px;flex:1}
-.sidebar-header{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid rgba(255,255,255,0.1)}
-.sidebar-logo{font-size:11px;font-weight:600;letter-spacing:.12em;color:rgba(255,255,255,0.5);text-transform:uppercase;margin-bottom:4px}
-.sidebar-title{font-size:18px;font-weight:600;color:#fff}
-.sidebar-sub{font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px}
-.online-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#7dcea0;margin-top:6px}
+.sidebar{width:240px;flex-shrink:0;background:var(--blue);color:#fff;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:10}
+.main{margin-left:240px;flex:1;display:flex;flex-direction:column}
+.sidebar-header{padding:1.25rem 1rem 1rem;border-bottom:1px solid rgba(255,255,255,0.1)}
+.sidebar-logo{font-size:10px;font-weight:600;letter-spacing:.12em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:3px}
+.sidebar-title{font-size:17px;font-weight:600}
+.sidebar-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px}
+.online-badge{display:flex;align-items:center;gap:5px;font-size:11px;color:#7dcea0;margin-top:6px}
 .online-dot{width:7px;height:7px;border-radius:50%;background:#27ae60;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.sidebar-section{padding:1rem 1.25rem 0.5rem;font-size:10px;font-weight:600;letter-spacing:.1em;color:rgba(255,255,255,0.35);text-transform:uppercase}
-.sidebar-stats{padding:0 1rem 1rem;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.sstat{background:rgba(255,255,255,0.08);border-radius:var(--radius);padding:10px;text-align:center}
-.sstat-n{font-size:22px;font-weight:700;color:#fff;line-height:1}
-.sstat-l{font-size:10px;color:rgba(255,255,255,0.5);margin-top:3px}
-.sidebar-nav{flex:1;padding:0 .75rem}
-.nav-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--radius);font-size:13px;color:rgba(255,255,255,0.7);cursor:pointer;margin-bottom:2px;transition:background .15s}
+.sidebar-section{padding:.85rem 1rem .4rem;font-size:10px;font-weight:600;letter-spacing:.1em;color:rgba(255,255,255,0.3);text-transform:uppercase}
+.sidebar-stats{padding:0 .75rem .85rem;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.sstat{background:rgba(255,255,255,0.08);border-radius:var(--radius);padding:8px;text-align:center}
+.sstat-n{font-size:20px;font-weight:700;line-height:1}
+.sstat-l{font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px}
+.sidebar-nav{padding:0 .5rem}
+.nav-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:var(--radius);font-size:13px;color:rgba(255,255,255,0.7);cursor:pointer;margin-bottom:2px;transition:background .15s}
 .nav-item:hover{background:rgba(255,255,255,0.1);color:#fff}
 .nav-item.active{background:rgba(255,255,255,0.15);color:#fff;font-weight:500}
-.nav-badge{margin-left:auto;font-size:10px;font-weight:600;padding:1px 6px;border-radius:99px;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.8)}
-.sidebar-footer{padding:1rem;border-top:1px solid rgba(255,255,255,0.1);display:flex;flex-direction:column;gap:6px}
-.btn-side{width:100%;padding:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:var(--radius);color:rgba(255,255,255,0.8);font-size:12px;cursor:pointer;transition:background .15s;text-align:center}
-.btn-side:hover{background:rgba(255,255,255,0.18)}
-.main-header{background:var(--white);border-bottom:1px solid var(--gray-border);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
-.main-header h1{font-size:16px;font-weight:600}
-.main-header-sub{font-size:12px;color:var(--text-muted);margin-top:1px}
-.btn-add{display:flex;align-items:center;gap:6px;padding:8px 16px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s}
+.nav-badge{margin-left:auto;font-size:10px;font-weight:600;padding:1px 6px;border-radius:99px;background:rgba(255,255,255,0.15)}
+.nav-divider{border:none;border-top:1px solid rgba(255,255,255,0.1);margin:.5rem .5rem}
+.sidebar-footer{padding:.75rem;border-top:1px solid rgba(255,255,255,0.1);margin-top:auto;display:flex;flex-direction:column;gap:5px}
+.btn-side{width:100%;padding:7px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius);color:rgba(255,255,255,0.75);font-size:11px;cursor:pointer;text-align:center;transition:background .15s}
+.btn-side:hover{background:rgba(255,255,255,0.15)}
+/* TABS */
+.tabs{display:flex;background:var(--white);border-bottom:1px solid var(--gray-border);padding:0 1.5rem}
+.tab{padding:12px 16px;font-size:13px;font-weight:500;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+.tab-content{display:none;flex:1}
+.tab-content.active{display:block}
+/* HEADER */
+.main-header{background:var(--white);border-bottom:1px solid var(--gray-border);padding:.85rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.main-header h1{font-size:15px;font-weight:600}
+.main-header-sub{font-size:11px;color:var(--text-muted);margin-top:1px}
+.btn-add{display:flex;align-items:center;gap:5px;padding:7px 14px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius);font-size:13px;font-weight:500;cursor:pointer}
 .btn-add:hover{background:var(--blue-mid)}
+/* CONTENT */
 .content{padding:1.25rem 1.5rem}
 .filters{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
-.filters input,.filters select{padding:7px 10px;border:1px solid var(--gray-border);border-radius:var(--radius);font-size:13px;background:var(--white);color:var(--text);height:34px;outline:none}
+.filters input,.filters select{padding:6px 10px;border:1px solid var(--gray-border);border-radius:var(--radius);font-size:13px;background:var(--white);color:var(--text);height:32px;outline:none}
+.filters input{width:180px}
 .filters input:focus,.filters select:focus{border-color:var(--blue-bright)}
-.filters input{width:200px}
-.view-toggle{display:flex;gap:4px}
-.vbtn{padding:6px 10px;border:1px solid var(--gray-border);border-radius:var(--radius);background:var(--white);cursor:pointer;font-size:12px;color:var(--text-muted)}
+.view-toggle{display:flex;gap:3px}
+.vbtn{padding:5px 10px;border:1px solid var(--gray-border);border-radius:var(--radius);background:var(--white);cursor:pointer;font-size:12px;color:var(--text-muted)}
 .vbtn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
-.card{background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius-lg);overflow:hidden;transition:box-shadow .15s,transform .1s;cursor:pointer}
-.card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.08);transform:translateY(-1px)}
-.card-header{padding:12px 14px 10px;display:flex;align-items:flex-start;justify-content:space-between}
-.card-name{font-size:13px;font-weight:600;line-height:1.3}
-.card-code{font-size:11px;color:var(--text-muted);margin-top:2px}
-.card-share{font-size:18px;font-weight:700;color:var(--blue);white-space:nowrap;margin-left:8px}
-.card-share span{font-size:11px;font-weight:400;color:var(--text-muted)}
-.card-body{padding:0 14px 12px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.card-footer{padding:8px 14px;background:var(--gray-light);border-top:1px solid var(--gray-border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-muted)}
-.card-next{font-size:12px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
-.card-overdue{color:var(--red);font-weight:500}
-.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:500;padding:2px 8px;border-radius:99px;white-space:nowrap}
+/* CARDS */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.card{background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 14px rgba(0,0,0,0.07);transform:translateY(-1px)}
+.card-header{padding:11px 13px 9px;display:flex;align-items:flex-start;justify-content:space-between}
+.card-name{font-size:12px;font-weight:600;line-height:1.3}
+.card-code{font-size:10px;color:var(--text-muted);margin-top:1px}
+.card-share{font-size:17px;font-weight:700;color:var(--blue);white-space:nowrap;margin-left:8px}
+.card-share span{font-size:10px;font-weight:400;color:var(--text-muted)}
+.card-body{padding:0 13px 10px;display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.card-footer{padding:7px 13px;background:var(--gray-light);border-top:1px solid var(--gray-border);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text-muted)}
+.card-next{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
+/* BADGES */
+.badge{display:inline-flex;align-items:center;font-size:10px;font-weight:500;padding:2px 7px;border-radius:99px;white-space:nowrap}
 .b-new{background:var(--blue-light);color:#185FA5}
 .b-a{background:var(--green-light);color:var(--green)}
 .b-b{background:var(--amber-light);color:var(--amber)}
@@ -65,63 +76,97 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .b-lvl1{background:var(--amber-light);color:var(--amber)}
 .b-lvl2{background:#FAECE7;color:#993C1D}
 .b-lvl3{background:var(--red-light);color:var(--red)}
+/* TABLE */
 .table-wrap{background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius-lg);overflow:hidden}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{background:var(--gray-light);padding:9px 12px;text-align:left;font-weight:500;color:var(--text-muted);border-bottom:1px solid var(--gray-border);font-size:11px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
-td{padding:10px 12px;border-bottom:1px solid var(--gray-border);vertical-align:middle}
+th{background:var(--gray-light);padding:8px 12px;text-align:left;font-weight:500;color:var(--text-muted);border-bottom:1px solid var(--gray-border);font-size:11px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--gray-border);vertical-align:middle}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:var(--gray-light)}
-.td-name{font-weight:500}
-.td-code{color:var(--text-muted);font-size:12px;font-family:monospace}
+tr:hover td{background:var(--gray-light);cursor:pointer}
+.td-name{font-weight:500;font-size:13px}
+.td-code{color:var(--text-muted);font-size:11px;font-family:monospace}
 .td-share{font-weight:600;color:var(--blue)}
-.td-next{color:var(--text-muted);font-size:12px;max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .overdue-cell{color:var(--red);font-weight:600}
+/* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:100;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.open{display:flex}
-.modal{background:var(--white);border-radius:var(--radius-lg);width:600px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
-.modal-header{padding:1.25rem 1.5rem 1rem;border-bottom:1px solid var(--gray-border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--white);z-index:1}
+.modal{background:var(--white);border-radius:var(--radius-lg);width:580px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
+.modal-header{padding:1.1rem 1.5rem .9rem;border-bottom:1px solid var(--gray-border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--white);z-index:1}
 .modal-header h2{font-size:15px;font-weight:600}
-.modal-close{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:22px;line-height:1;padding:2px}
+.modal-close{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:22px;line-height:1}
 .modal-close:hover{color:var(--text)}
-.modal-body{padding:1.25rem 1.5rem}
-.modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--gray-border);display:flex;justify-content:flex-end;gap:8px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.form-row{margin-bottom:12px}
-.form-row label{display:block;font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:5px}
-.form-row input,.form-row select,.form-row textarea{width:100%;padding:8px 10px;border:1px solid var(--gray-border);border-radius:var(--radius);font-size:13px;background:var(--white);color:var(--text);outline:none;font-family:inherit}
+.modal-body{padding:1.1rem 1.5rem}
+.modal-footer{padding:.9rem 1.5rem;border-top:1px solid var(--gray-border);display:flex;justify-content:flex-end;gap:8px}
+.modal-lg{width:700px}
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.form-row{margin-bottom:10px}
+.form-row label{display:block;font-size:11px;font-weight:500;color:var(--text-muted);margin-bottom:4px}
+.form-row input,.form-row select,.form-row textarea{width:100%;padding:7px 10px;border:1px solid var(--gray-border);border-radius:var(--radius);font-size:13px;background:var(--white);color:var(--text);outline:none;font-family:inherit}
 .form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--blue-bright)}
-.form-row textarea{height:80px;resize:vertical}
-.detail-title{font-size:16px;font-weight:600;line-height:1.3}
+.form-row textarea{height:70px;resize:vertical}
+/* DETAIL */
+.detail-title{font-size:15px;font-weight:600;line-height:1.3}
 .detail-meta{font-size:12px;color:var(--text-muted);margin-top:3px}
 .mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:1rem 0}
-.mini-stat{background:var(--gray-light);border-radius:var(--radius);padding:10px 12px;text-align:center}
+.mini-stat{background:var(--gray-light);border-radius:var(--radius);padding:9px 12px;text-align:center}
 .mini-stat-n{font-size:13px;font-weight:600}
-.mini-stat-l{font-size:11px;color:var(--text-muted);margin-top:2px}
-.next-box{background:var(--blue-light);border-radius:var(--radius);padding:10px 12px;font-size:13px;margin-bottom:1rem}
-.next-box-label{font-size:11px;color:#185FA5;font-weight:600;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em}
-.section-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin:1rem 0 .5rem}
-.drive-folders{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:1rem}
-.drive-folder{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--gray-border);border-radius:var(--radius);font-size:12px;color:var(--text-muted);background:var(--gray-light)}
-.log-item{padding:10px 12px;border:1px solid var(--gray-border);border-radius:var(--radius);margin-bottom:8px}
-.log-item-header{display:flex;align-items:center;gap:6px;margin-bottom:4px}
-.log-date{font-size:11px;color:var(--text-muted)}
-.log-text{font-size:13px;color:var(--text)}
-.log-next{font-size:12px;color:var(--text-muted);margin-top:4px}
-.log-tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px}
+.mini-stat-l{font-size:10px;color:var(--text-muted);margin-top:2px}
+.next-box{background:var(--blue-light);border-radius:var(--radius);padding:9px 12px;font-size:13px;margin-bottom:1rem}
+.next-box-label{font-size:10px;color:#185FA5;font-weight:600;margin-bottom:2px;text-transform:uppercase;letter-spacing:.05em}
+.section-label{font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin:1rem 0 .5rem}
+.drive-folders{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:1rem}
+.drive-folder{display:flex;align-items:center;gap:7px;padding:6px 9px;border:1px solid var(--gray-border);border-radius:var(--radius);font-size:11px;color:var(--text-muted);background:var(--gray-light)}
+/* LOG */
+.log-item{padding:9px 11px;border:1px solid var(--gray-border);border-radius:var(--radius);margin-bottom:7px;position:relative}
+.log-item-header{display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.log-date{font-size:10px;color:var(--text-muted)}
+.log-text{font-size:13px}
+.log-next{font-size:11px;color:var(--text-muted);margin-top:3px}
+.log-link{font-size:11px;margin-top:3px}
+.log-link a{color:var(--blue-bright);text-decoration:none}
+.log-link a:hover{text-decoration:underline}
+.log-tag{font-size:10px;font-weight:600;padding:2px 6px;border-radius:99px}
 .lt-letter{background:var(--blue-light);color:#185FA5}
 .lt-reply{background:var(--green-light);color:var(--green)}
 .lt-complaint{background:var(--red-light);color:var(--red)}
-.lt-audit{background:#F4ECF7;color:#7D3C98}
+.lt-audit{background:var(--purple-light);color:var(--purple)}
 .lt-note{background:#F1EFE8;color:#5F5E5A}
-.detail-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--gray-border);border-radius:var(--radius);background:var(--white);color:var(--text);font-size:13px;cursor:pointer;transition:background .15s}
+.log-del{position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:14px;padding:2px 5px;border-radius:4px}
+.log-del:hover{background:var(--red-light);color:var(--red)}
+/* BTN */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border:1px solid var(--gray-border);border-radius:var(--radius);background:var(--white);color:var(--text);font-size:13px;cursor:pointer;transition:background .15s}
 .btn:hover{background:var(--gray-light)}
 .btn-blue{background:var(--blue);color:#fff;border-color:var(--blue)}
 .btn-blue:hover{background:var(--blue-mid);border-color:var(--blue-mid)}
-.btn-sm{padding:6px 10px;font-size:12px}
-.empty{text-align:center;padding:3rem 1rem;color:var(--text-muted);font-size:13px}
-.loading{text-align:center;padding:3rem;color:var(--text-muted);font-size:13px}
-.sync-indicator{position:fixed;bottom:1rem;right:1rem;background:var(--blue);color:#fff;padding:6px 12px;border-radius:99px;font-size:12px;opacity:0;transition:opacity .3s;z-index:200}
+.btn-sm{padding:5px 9px;font-size:11px}
+.btn-red{background:var(--red-light);color:var(--red);border-color:rgba(146,43,33,0.2)}
+.btn-red:hover{background:#f8c9c5}
+.detail-actions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:1rem}
+.empty{text-align:center;padding:3rem;color:var(--text-muted);font-size:13px}
+/* TASKS */
+.task-item{background:var(--white);border:1px solid var(--gray-border);border-radius:var(--radius);padding:11px 13px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px;transition:box-shadow .15s}
+.task-item:hover{box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.task-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--gray-border);cursor:pointer;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.task-check.done{background:var(--green);border-color:var(--green);color:#fff}
+.task-body{flex:1;min-width:0}
+.task-title{font-size:13px;font-weight:500;line-height:1.4}
+.task-title.done{text-decoration:line-through;color:var(--text-muted)}
+.task-meta{display:flex;gap:8px;align-items:center;margin-top:4px;flex-wrap:wrap}
+.task-company{font-size:11px;color:var(--text-muted)}
+.task-deadline{font-size:11px;font-weight:500}
+.task-deadline.overdue{color:var(--red)}
+.task-deadline.soon{color:var(--amber)}
+.task-deadline.ok{color:var(--green)}
+.task-actions{display:flex;gap:4px;flex-shrink:0}
+.priority-badge{font-size:10px;font-weight:600;padding:1px 6px;border-radius:99px}
+.p-high{background:var(--red-light);color:var(--red)}
+.p-mid{background:var(--amber-light);color:var(--amber)}
+.p-low{background:var(--green-light);color:var(--green)}
+.tasks-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.tasks-filters{display:flex;gap:8px;flex-wrap:wrap}
+/* SYNC */
+.sync-indicator{position:fixed;bottom:1rem;right:1rem;background:var(--blue);color:#fff;padding:5px 12px;border-radius:99px;font-size:11px;opacity:0;transition:opacity .3s;z-index:200}
 .sync-indicator.show{opacity:1}
 </style>
 </head>
@@ -130,21 +175,25 @@ tr:hover td{background:var(--gray-light)}
 <aside class="sidebar">
   <div class="sidebar-header">
     <div class="sidebar-logo">ПрАТ «ХК «Київміськбуд»</div>
-    <div class="sidebar-title">Трекер підприємств</div>
+    <div class="sidebar-title">Трекер КМБ</div>
     <div class="sidebar-sub">Корпоративний тиск · 2025–2026</div>
     <div class="online-badge"><span class="online-dot"></span><span id="connStatus">Підключення...</span></div>
   </div>
   <div class="sidebar-section">Статистика</div>
   <div class="sidebar-stats" id="sideStats"></div>
-  <div class="sidebar-section">Фільтр за треком</div>
+  <div class="sidebar-section">Підприємства</div>
   <nav class="sidebar-nav" id="sideNav"></nav>
-  <div style="padding:0 1rem 1rem">
-    <div class="sidebar-section" style="padding-left:0;margin-bottom:6px">Ескалація</div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.7">
-      <b style="color:rgba(255,255,255,0.75)">Рів.0</b> Первинний запит<br>
-      <b style="color:rgba(255,255,255,0.75)">Рів.1</b> Перша ескалація<br>
-      <b style="color:rgba(255,255,255,0.75)">Рів.2</b> Скарга НКЦПФР + аудит<br>
-      <b style="color:rgba(255,255,255,0.75)">Рів.3</b> Максимальний тиск
+  <hr class="nav-divider">
+  <div class="sidebar-nav">
+    <div class="nav-item" id="navTasks" onclick="switchTab('tasks')">📋 Органайзер задач <span class="nav-badge" id="tasksBadge">0</span></div>
+  </div>
+  <div style="padding:.5rem 1rem .75rem">
+    <div class="sidebar-section" style="padding-left:0;padding-top:.5rem;margin-bottom:5px">Ескалація</div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.45);line-height:1.7">
+      <b style="color:rgba(255,255,255,0.7)">Рів.0</b> Первинний запит<br>
+      <b style="color:rgba(255,255,255,0.7)">Рів.1</b> Перша ескалація<br>
+      <b style="color:rgba(255,255,255,0.7)">Рів.2</b> Скарга НКЦПФР + аудит<br>
+      <b style="color:rgba(255,255,255,0.7)">Рів.3</b> Максимальний тиск
     </div>
   </div>
   <div class="sidebar-footer">
@@ -154,37 +203,76 @@ tr:hover td{background:var(--gray-light)}
 </aside>
 
 <main class="main">
-  <div class="main-header">
-    <div>
-      <div class="main-header-sub" id="headerSub">Всі підприємства</div>
-      <h1 id="headerTitle">21 підприємство</h1>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px">
-      <div class="view-toggle">
-        <button class="vbtn active" id="vbtnCard" onclick="setView('card')">⊞ Картки</button>
-        <button class="vbtn" id="vbtnTable" onclick="setView('table')">☰ Таблиця</button>
+  <!-- COMPANIES TAB -->
+  <div class="tab-content active" id="tabCompanies">
+    <div class="main-header">
+      <div>
+        <div class="main-header-sub" id="headerSub">Всі підприємства</div>
+        <h1 id="headerTitle">21 підприємство</h1>
       </div>
-      <button class="btn-add" onclick="openAddEvent()">+ Додати подію</button>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="view-toggle">
+          <button class="vbtn active" id="vbtnCard" onclick="setView('card')">⊞</button>
+          <button class="vbtn" id="vbtnTable" onclick="setView('table')">☰</button>
+        </div>
+        <button class="btn-add" onclick="openAddEvent()">+ Подія</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="filters">
+        <input type="text" id="search" placeholder="Пошук..." oninput="render()">
+        <select id="fSort" onchange="render()">
+          <option value="name">За назвою</option>
+          <option value="share">За часткою ↓</option>
+          <option value="deadline">За дедлайном</option>
+          <option value="lvl">За рівнем ↓</option>
+        </select>
+        <select id="fLvl" onchange="render()">
+          <option value="">Всі рівні</option>
+          <option value="0">Рівень 0</option>
+          <option value="1">Рівень 1</option>
+          <option value="2">Рівень 2</option>
+          <option value="3">Рівень 3</option>
+        </select>
+      </div>
+      <div id="mainContent"><div class="empty">⏳ Завантаження...</div></div>
     </div>
   </div>
-  <div class="content">
-    <div class="filters">
-      <input type="text" id="search" placeholder="Пошук..." oninput="render()">
-      <select id="fSort" onchange="render()">
-        <option value="name">За назвою</option>
-        <option value="share">За часткою ↓</option>
-        <option value="deadline">За дедлайном</option>
-        <option value="lvl">За рівнем ↓</option>
-      </select>
-      <select id="fLvl" onchange="render()">
-        <option value="">Всі рівні</option>
-        <option value="0">Рівень 0</option>
-        <option value="1">Рівень 1</option>
-        <option value="2">Рівень 2</option>
-        <option value="3">Рівень 3</option>
-      </select>
+
+  <!-- TASKS TAB -->
+  <div class="tab-content" id="tabTasks">
+    <div class="main-header">
+      <div>
+        <div class="main-header-sub">Загальний органайзер</div>
+        <h1>Задачі</h1>
+      </div>
+      <button class="btn-add" onclick="openAddTask()">+ Задача</button>
     </div>
-    <div id="mainContent"><div class="loading">⏳ Завантаження даних з Firebase...</div></div>
+    <div class="content">
+      <div class="tasks-filters filters">
+        <select id="tFilterStatus" onchange="renderTasks()">
+          <option value="">Всі задачі</option>
+          <option value="todo">Активні</option>
+          <option value="done">Виконані</option>
+        </select>
+        <select id="tFilterCompany" onchange="renderTasks()">
+          <option value="">Всі підприємства</option>
+        </select>
+        <select id="tFilterPriority" onchange="renderTasks()">
+          <option value="">Будь-який пріоритет</option>
+          <option value="high">Високий</option>
+          <option value="mid">Середній</option>
+          <option value="low">Низький</option>
+        </select>
+        <select id="tSort" onchange="renderTasks()">
+          <option value="deadline">За дедлайном</option>
+          <option value="priority">За пріоритетом</option>
+          <option value="created">За датою створення</option>
+        </select>
+      </div>
+      <div id="taskStats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem"></div>
+      <div id="tasksList"></div>
+    </div>
   </div>
 </main>
 </div>
@@ -219,8 +307,8 @@ tr:hover td{background:var(--gray-light)}
         <div class="form-row" style="margin:0"><label>Рівень ескалації</label>
           <select id="evLvl">
             <option value="0">Рівень 0 — первинний</option>
-            <option value="1">Рівень 1 — перша ескалація</option>
-            <option value="2">Рівень 2 — скарга + аудит</option>
+            <option value="1">Рівень 1 — ескалація</option>
+            <option value="2">Рівень 2 — скарга+аудит</option>
             <option value="3">Рівень 3 — максимум</option>
           </select>
         </div>
@@ -229,7 +317,12 @@ tr:hover td{background:var(--gray-light)}
         <div class="form-row" style="margin:0"><label>Дедлайн відповіді</label><input type="date" id="evDeadline"></div>
         <div class="form-row" style="margin:0"><label>Наступний крок</label><input type="text" id="evNextStep" placeholder="напр. Чекати відповіді"></div>
       </div>
-      <div class="form-row"><label>Опис / нотатка</label><textarea id="evNote" placeholder="Що відправлено, що отримано, деталі..."></textarea></div>
+      <div class="form-row"><label>Опис / нотатка</label><textarea id="evNote" placeholder="Що відправлено, що отримано..."></textarea></div>
+      <div class="form-row">
+        <label>📁 Посилання на документ у Google Drive</label>
+        <input type="url" id="evDriveLink" placeholder="https://drive.google.com/...">
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">Завантажте файл у Google Drive → правою кнопкою → «Копіювати посилання» → вставте сюди</div>
+      </div>
     </div>
     <div class="modal-footer">
       <button class="btn" onclick="closeAdd()">Скасувати</button>
@@ -240,33 +333,60 @@ tr:hover td{background:var(--gray-light)}
 
 <!-- DETAIL MODAL -->
 <div class="modal-overlay" id="detailModal">
-  <div class="modal">
+  <div class="modal modal-lg">
     <div class="modal-header"><h2 id="detailTitle">—</h2><button class="modal-close" onclick="closeDetail()">×</button></div>
     <div class="modal-body" id="detailBody"></div>
   </div>
 </div>
 
+<!-- ADD TASK MODAL -->
+<div class="modal-overlay" id="taskModal">
+  <div class="modal">
+    <div class="modal-header"><h2 id="taskModalTitle">Нова задача</h2><button class="modal-close" onclick="closeTaskModal()">×</button></div>
+    <div class="modal-body">
+      <div class="form-row"><label>Назва задачі *</label><input type="text" id="tTitle" placeholder="Що потрібно зробити?"></div>
+      <div class="form-grid">
+        <div class="form-row" style="margin:0"><label>Підприємство</label>
+          <select id="tCompany"><option value="">— Загальна задача —</option></select>
+        </div>
+        <div class="form-row" style="margin:0"><label>Відповідальний</label>
+          <input type="text" id="tAssignee" placeholder="ПІБ або відділ">
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row" style="margin:0"><label>Дедлайн</label><input type="date" id="tDeadline"></div>
+        <div class="form-row" style="margin:0"><label>Пріоритет</label>
+          <select id="tPriority">
+            <option value="mid">Середній</option>
+            <option value="high">Високий</option>
+            <option value="low">Низький</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row"><label>Опис</label><textarea id="tDesc" placeholder="Деталі, контекст..."></textarea></div>
+      <div class="form-row">
+        <label>📁 Посилання на документ Google Drive</label>
+        <input type="url" id="tDriveLink" placeholder="https://drive.google.com/...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeTaskModal()">Скасувати</button>
+      <button class="btn btn-blue" onclick="saveTask()">Зберегти</button>
+    </div>
+  </div>
+</div>
+
 <div class="sync-indicator" id="syncInd">💾 Збережено</div>
 
-<!-- Firebase SDK -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getDatabase,ref,set,get,onValue,update,remove}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAmWLmuUKq8P3HVHrjIN1wepjKGZsJhpVE",
-  authDomain: "kmb-tracker.firebaseapp.com",
-  databaseURL: "https://kmb-tracker-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "kmb-tracker",
-  storageBucket: "kmb-tracker.firebasestorage.app",
-  messagingSenderId: "676398491833",
-  appId: "1:676398491833:web:fa2362b1a92c53ab379368"
-};
+const firebaseConfig={apiKey:"AIzaSyAmWLmuUKq8P3HVHrjIN1wepjKGZsJhpVE",authDomain:"kmb-tracker.firebaseapp.com",databaseURL:"https://kmb-tracker-default-rtdb.europe-west1.firebasedatabase.app",projectId:"kmb-tracker",storageBucket:"kmb-tracker.firebasestorage.app",messagingSenderId:"676398491833",appId:"1:676398491833:web:fa2362b1a92c53ab379368"};
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-const COMPANIES = [
+const COMPANIES=[
   {id:'1',name:'ДК №4',full:'ПрАТ «Домобудівний комбінат №4»',code:'05503160',share:30.0},
   {id:'2',name:'Будмеханізація',full:'ПАТ «Будмеханізація»',code:'04012767',share:12.82},
   {id:'3',name:'Трест Київспецбуд',full:'ПрАТ «Трест Київспецбуд»',code:'04012744',share:25.0},
@@ -289,41 +409,43 @@ const COMPANIES = [
   {id:'20',name:'Київбуддеталькомплект',full:'ПрАТ «Київбуддеталькомплект»',code:'04012419',share:29.998},
   {id:'21',name:'Інвест. технології',full:'ВАТ «ІНВЕСТИЦІЙНІ ТЕХНОЛОГІЇ»',code:'36424605',share:30.65},
 ];
-
 const FOLDERS=['01_Статутні_документи','02_Листи-вимоги','03_Відповіді','04_Скарги_НКЦПФР','05_Суд','06_Отримані_документи','07_Аналітика'];
 const TYPE_LABEL={letter:'Лист',reply:'Відповідь',complaint:'Скарга НКЦПФР',audit:'Аудит',note:'Нотатка'};
 const TYPE_CLASS={letter:'lt-letter',reply:'lt-reply',complaint:'lt-complaint',audit:'lt-audit',note:'lt-note'};
 const TRACK_LABEL={new:'Новий',a:'Трек А',b:'Трек Б',v:'Трек В'};
 const TRACK_CLASS={new:'b-new',a:'b-a',b:'b-b',v:'b-v'};
 const LVL_CLASS=['b-lvl0','b-lvl1','b-lvl2','b-lvl3'];
+const PRIO_LABEL={high:'Високий',mid:'Середній',low:'Низький'};
+const PRIO_CLASS={high:'p-high',mid:'p-mid',low:'p-low'};
 
 let state={};
+let tasks={};
 let activeFilter='';
 let viewMode='card';
+let currentDetailId=null;
+let editingTaskId=null;
 
-function showSync(){
-  const el=document.getElementById('syncInd');
-  el.classList.add('show');
-  setTimeout(()=>el.classList.remove('show'),2000);
-}
-
-function fmtDate(d){
-  if(!d)return'—';
-  return new Date(d).toLocaleDateString('uk-UA',{day:'2-digit',month:'2-digit',year:'2-digit'});
-}
+function showSync(){const el=document.getElementById('syncInd');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000)}
+function fmtDate(d){if(!d)return'—';return new Date(d).toLocaleDateString('uk-UA',{day:'2-digit',month:'2-digit',year:'2-digit'})}
 function isOverdue(d){return d&&new Date(d)<new Date()}
-function badge(text,cls){return`<span class="badge ${cls}">${text}</span>`}
+function badge(t,c){return`<span class="badge ${c}">${t}</span>`}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
 
+// populate company selects
+function populateCompanySelects(){
+  const opts=COMPANIES.map(c=>`<option value="${c.id}">${c.name} (${c.code})</option>`).join('');
+  document.getElementById('evCompany').innerHTML=opts;
+  document.getElementById('tCompany').innerHTML='<option value="">— Загальна задача —</option>'+opts;
+  const tf=document.getElementById('tFilterCompany');
+  tf.innerHTML='<option value="">Всі підприємства</option>'+opts;
+}
+
+// ── SIDEBAR ──────────────────────────────────────────────
 function getStats(){
   const c={new:0,a:0,b:0,v:0,overdue:0,total:COMPANIES.length};
-  COMPANIES.forEach(co=>{
-    const st=state[co.id]||{};
-    c[st.track||'new']=(c[st.track||'new']||0)+1;
-    if(isOverdue(st.deadline))c.overdue++;
-  });
+  COMPANIES.forEach(co=>{const st=state[co.id]||{};c[st.track||'new']=(c[st.track||'new']||0)+1;if(isOverdue(st.deadline))c.overdue++});
   return c;
 }
-
 function renderSidebar(){
   const s=getStats();
   document.getElementById('sideStats').innerHTML=`
@@ -331,19 +453,14 @@ function renderSidebar(){
     <div class="sstat"><div class="sstat-n" style="color:#f9d97c">${s.overdue}</div><div class="sstat-l">Прострочено</div></div>
     <div class="sstat"><div class="sstat-n">${s.new}</div><div class="sstat-l">Нові</div></div>
     <div class="sstat"><div class="sstat-n" style="color:#7dcea0">${s.a}</div><div class="sstat-l">Трек А</div></div>`;
-  const items=[
-    {key:'',label:'Всі підприємства',count:s.total},
-    {key:'new',label:'Нові',count:s.new},
-    {key:'a',label:'Трек А — діалог',count:s.a},
-    {key:'b',label:'Трек Б — ескалація',count:s.b},
-    {key:'v',label:'Трек В — ігнорування',count:s.v},
-  ];
-  document.getElementById('sideNav').innerHTML=items.map(it=>`
-    <div class="nav-item ${activeFilter===it.key?'active':''}" onclick="window._setFilter('${it.key}')">
-      ${it.label}<span class="nav-badge">${it.count}</span>
-    </div>`).join('');
+  const items=[{key:'',label:'Всі',count:s.total},{key:'new',label:'Нові',count:s.new},{key:'a',label:'Трек А',count:s.a},{key:'b',label:'Трек Б',count:s.b},{key:'v',label:'Трек В',count:s.v}];
+  document.getElementById('sideNav').innerHTML=items.map(it=>`<div class="nav-item ${activeFilter===it.key&&currentTab==='companies'?'active':''}" onclick="setFilter('${it.key}')">${it.label}<span class="nav-badge">${it.count}</span></div>`).join('');
+  const activeTasks=Object.values(tasks).filter(t=>t.status==='todo').length;
+  document.getElementById('tasksBadge').textContent=activeTasks;
+  document.getElementById('navTasks').className='nav-item'+(currentTab==='tasks'?' active':'');
 }
 
+// ── COMPANIES ─────────────────────────────────────────────
 function getFiltered(){
   const q=(document.getElementById('search').value||'').toLowerCase();
   const fl=document.getElementById('fLvl').value;
@@ -358,7 +475,6 @@ function getFiltered(){
   else list.sort((a,b)=>a.name.localeCompare(b.name,'uk'));
   return list;
 }
-
 function render(){
   renderSidebar();
   const list=getFiltered();
@@ -366,47 +482,28 @@ function render(){
   document.getElementById('headerTitle').textContent=`${list.length} підприємств${list.length===1?'о':''}`;
   const el=document.getElementById('mainContent');
   if(!list.length){el.innerHTML='<div class="empty">Нічого не знайдено</div>';return}
-  el.innerHTML=viewMode==='card'
-    ?`<div class="grid">${list.map(renderCard).join('')}</div>`
+  el.innerHTML=viewMode==='card'?`<div class="grid">${list.map(renderCard).join('')}</div>`
     :`<div class="table-wrap"><table><thead><tr><th>Підприємство</th><th>ЄДРПОУ</th><th>Частка</th><th>Трек</th><th>Рівень</th><th>Остання подія</th><th>Наступний крок</th><th>Дедлайн</th></tr></thead><tbody>${list.map(renderRow).join('')}</tbody></table></div>`;
 }
-
 function renderCard(c){
-  const st=state[c.id]||{};
-  const over=isOverdue(st.deadline);
-  return`<div class="card" onclick="window._openDetail('${c.id}')">
+  const st=state[c.id]||{};const over=isOverdue(st.deadline);
+  return`<div class="card" onclick="_openDetail('${c.id}')">
     <div class="card-header">
       <div><div class="card-name">${c.full}</div><div class="card-code">ЄДРПОУ ${c.code}</div></div>
       <div class="card-share">${c.share}<span>%</span></div>
     </div>
-    <div class="card-body">
-      ${badge(TRACK_LABEL[st.track||'new'],TRACK_CLASS[st.track||'new'])}
-      ${badge('Рів.'+(st.level||0),LVL_CLASS[st.level||0])}
-      ${(st.logs||[]).length?`<span style="font-size:11px;color:var(--text-muted)">${(st.logs||[]).length} подій</span>`:''}
-    </div>
-    <div class="card-footer">
-      <div class="card-next">${st.nextStep||'Відправити Лист №1'}</div>
-      <div class="${over?'card-overdue':''}">${fmtDate(st.deadline)}${over?' ⚠':''}</div>
-    </div>
+    <div class="card-body">${badge(TRACK_LABEL[st.track||'new'],TRACK_CLASS[st.track||'new'])} ${badge('Рів.'+(st.level||0),LVL_CLASS[st.level||0])} ${(st.logs||[]).length?`<span style="font-size:10px;color:var(--text-muted)">${(st.logs||[]).length} подій</span>`:''}</div>
+    <div class="card-footer"><div class="card-next">${st.nextStep||'Відправити Лист №1'}</div><div class="${over?'overdue-cell':''}">${fmtDate(st.deadline)}${over?' ⚠':''}</div></div>
   </div>`;
 }
-
 function renderRow(c){
-  const st=state[c.id]||{};
-  const over=isOverdue(st.deadline);
-  return`<tr onclick="window._openDetail('${c.id}')" style="cursor:pointer">
-    <td class="td-name">${c.name}</td>
-    <td class="td-code">${c.code}</td>
-    <td class="td-share">${c.share}%</td>
-    <td>${badge(TRACK_LABEL[st.track||'new'],TRACK_CLASS[st.track||'new'])}</td>
-    <td>${badge('Рів.'+(st.level||0),LVL_CLASS[st.level||0])}</td>
-    <td style="font-size:12px;color:var(--text-muted)">${fmtDate(st.lastDate)}</td>
-    <td class="td-next">${st.nextStep||'—'}</td>
-    <td class="${over?'overdue-cell':''}">${fmtDate(st.deadline)}${over?' ⚠':''}</td>
-  </tr>`;
+  const st=state[c.id]||{};const over=isOverdue(st.deadline);
+  return`<tr onclick="_openDetail('${c.id}')"><td class="td-name">${c.name}</td><td class="td-code">${c.code}</td><td class="td-share">${c.share}%</td><td>${badge(TRACK_LABEL[st.track||'new'],TRACK_CLASS[st.track||'new'])}</td><td>${badge('Рів.'+(st.level||0),LVL_CLASS[st.level||0])}</td><td style="font-size:11px;color:var(--text-muted)">${fmtDate(st.lastDate)}</td><td style="font-size:11px;color:var(--text-muted);max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${st.nextStep||'—'}</td><td class="${over?'overdue-cell':''}">${fmtDate(st.deadline)}${over?' ⚠':''}</td></tr>`;
 }
 
+// ── DETAIL ────────────────────────────────────────────────
 window._openDetail=function(id){
+  currentDetailId=id;
   const c=COMPANIES.find(x=>x.id===id);
   const st=state[id]||{};
   const logs=(st.logs||[]).slice().reverse();
@@ -415,7 +512,7 @@ window._openDetail=function(id){
   document.getElementById('detailBody').innerHTML=`
     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
       <div><div class="detail-title">${c.full}</div><div class="detail-meta">ЄДРПОУ ${c.code} · Частка ${c.share}%</div></div>
-      <div style="text-align:right">${badge(TRACK_LABEL[st.track||'new'],TRACK_CLASS[st.track||'new'])} <span style="display:inline-block;margin-left:4px">${badge('Рів.'+(st.level||0),LVL_CLASS[st.level||0])}</span></div>
+      <div>${badge(TRACK_LABEL[st.track||'new'],TRACK_CLASS[st.track||'new'])} <span style="margin-left:3px">${badge('Рів.'+(st.level||0),LVL_CLASS[st.level||0])}</span></div>
     </div>
     <div class="mini-stats">
       <div class="mini-stat"><div class="mini-stat-n">${fmtDate(st.lastDate)}</div><div class="mini-stat-l">Остання подія</div></div>
@@ -424,47 +521,52 @@ window._openDetail=function(id){
     </div>
     <div class="next-box"><div class="next-box-label">Наступний крок</div>${st.nextStep||'Відправити Лист №1'}</div>
     <div class="detail-actions">
-      <button class="btn btn-blue btn-sm" onclick="closeDetail();window._openAddEvent('${id}')">+ Додати подію</button>
+      <button class="btn btn-blue btn-sm" onclick="closeDetail();_openAddEvent('${id}')">+ Додати подію</button>
       <a href="https://drive.google.com/drive/search?q=${encodeURIComponent(c.full)}" target="_blank" style="text-decoration:none"><button class="btn btn-sm">📁 Google Drive</button></a>
     </div>
     <div class="section-label">Структура папки Google Drive</div>
     <div class="drive-folders">${FOLDERS.map(f=>`<div class="drive-folder">📁 ${f}</div>`).join('')}</div>
     <div class="section-label">Журнал подій</div>
-    <div>${logs.length?logs.map(l=>`
-      <div class="log-item">
-        <div class="log-item-header">
-          <span class="log-tag ${TYPE_CLASS[l.type]||'lt-note'}">${TYPE_LABEL[l.type]||l.type}</span>
-          <span class="log-date">${fmtDate(l.date)}</span>
-          <span style="margin-left:auto">${badge(TRACK_LABEL[l.track||'new'],TRACK_CLASS[l.track||'new'])} ${badge('Рів.'+(l.level||0),LVL_CLASS[l.level||0])}</span>
-        </div>
-        ${l.note?`<div class="log-text">${l.note}</div>`:''}
-        ${l.nextStep?`<div class="log-next">→ ${l.nextStep}</div>`:''}
-      </div>`).join(''):'<div style="font-size:13px;color:var(--text-muted);padding:8px 0">Подій ще немає.</div>'}</div>`;
+    <div id="logsContainer">${logs.length?logs.map((l,ri)=>{const i=(st.logs||[]).length-1-ri;return renderLogItem(l,id,i)}).join(''):'<div style="font-size:13px;color:var(--text-muted);padding:8px 0">Подій ще немає.</div>'}</div>`;
   document.getElementById('detailModal').classList.add('open');
 };
 
+function renderLogItem(l,companyId,index){
+  return`<div class="log-item" id="log_${companyId}_${index}">
+    <button class="log-del" onclick="_deleteLog('${companyId}',${index})" title="Видалити подію">🗑</button>
+    <div class="log-item-header">
+      <span class="log-tag ${TYPE_CLASS[l.type]||'lt-note'}">${TYPE_LABEL[l.type]||l.type}</span>
+      <span class="log-date">${fmtDate(l.date)}</span>
+      <span style="margin-left:auto">${badge(TRACK_LABEL[l.track||'new'],TRACK_CLASS[l.track||'new'])} ${badge('Рів.'+(l.level||0),LVL_CLASS[l.level||0])}</span>
+    </div>
+    ${l.note?`<div class="log-text">${l.note}</div>`:''}
+    ${l.nextStep?`<div class="log-next">→ ${l.nextStep}</div>`:''}
+    ${l.driveLink?`<div class="log-link">📁 <a href="${l.driveLink}" target="_blank">Відкрити документ у Google Drive</a></div>`:''}
+  </div>`;
+}
+
+window._deleteLog=async function(companyId,index){
+  if(!confirm('Видалити цю подію?'))return;
+  const logs=state[companyId].logs||[];
+  logs.splice(index,1);
+  state[companyId].logs=logs;
+  if(logs.length>0){const last=logs[logs.length-1];state[companyId].lastDate=last.date;state[companyId].nextStep=last.nextStep||state[companyId].nextStep}
+  await set(ref(db,`companies/${companyId}`),state[companyId]);
+  showSync();
+  _openDetail(companyId);
+  render();
+};
+
+// ── ADD EVENT ─────────────────────────────────────────────
 window._openAddEvent=function(preId){
   const sel=document.getElementById('evCompany');
-  sel.innerHTML=COMPANIES.map(c=>`<option value="${c.id}">${c.name} (${c.code})</option>`).join('');
   if(preId)sel.value=preId;
   document.getElementById('evDate').value=new Date().toISOString().split('T')[0];
   const dl=new Date();dl.setDate(dl.getDate()+14);
   document.getElementById('evDeadline').value=dl.toISOString().split('T')[0];
   ['evType','evTrack','evLvl'].forEach(id=>document.getElementById(id).selectedIndex=0);
-  ['evNote','evNextStep'].forEach(id=>document.getElementById(id).value='');
+  ['evNote','evNextStep','evDriveLink'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('addModal').classList.add('open');
-};
-
-window._setFilter=function(f){activeFilter=f;render()};
-
-window.openAddEvent=()=>window._openAddEvent(null);
-window.closeAdd=()=>document.getElementById('addModal').classList.remove('open');
-window.closeDetail=()=>document.getElementById('detailModal').classList.remove('open');
-window.setView=function(v){
-  viewMode=v;
-  document.getElementById('vbtnCard').classList.toggle('active',v==='card');
-  document.getElementById('vbtnTable').classList.toggle('active',v==='table');
-  render();
 };
 
 window.saveEvent=async function(){
@@ -476,69 +578,210 @@ window.saveEvent=async function(){
   const deadline=document.getElementById('evDeadline').value;
   const note=document.getElementById('evNote').value;
   const nextStep=document.getElementById('evNextStep').value;
+  const driveLink=document.getElementById('evDriveLink').value;
   if(!state[id])state[id]={track:'new',level:0,lastDate:'',deadline:'',nextStep:'',logs:[]};
   Object.assign(state[id],{track,level,lastDate:date,deadline,nextStep});
   if(!state[id].logs)state[id].logs=[];
-  state[id].logs.push({type,date,note,nextStep,track,level});
+  const logEntry={type,date,note,nextStep,track,level};
+  if(driveLink)logEntry.driveLink=driveLink;
+  state[id].logs.push(logEntry);
   await set(ref(db,`companies/${id}`),state[id]);
-  showSync();
-  window.closeAdd();
-  render();
+  showSync();closeAdd();render();
+  if(currentDetailId===id)_openDetail(id);
 };
 
+// ── TASKS ─────────────────────────────────────────────────
+function renderTasks(){
+  renderSidebar();
+  const fs=document.getElementById('tFilterStatus').value;
+  const fc=document.getElementById('tFilterCompany').value;
+  const fp=document.getElementById('tFilterPriority').value;
+  const so=document.getElementById('tSort').value;
+  let list=Object.entries(tasks).map(([id,t])=>({id,...t}));
+  if(fs)list=list.filter(t=>t.status===fs);
+  if(fc)list=list.filter(t=>t.companyId===fc);
+  if(fp)list=list.filter(t=>t.priority===fp);
+  if(so==='priority'){const po={high:0,mid:1,low:2};list.sort((a,b)=>(po[a.priority]||1)-(po[b.priority]||1))}
+  else if(so==='created')list.sort((a,b)=>(b.created||0)-(a.created||0));
+  else list.sort((a,b)=>{const da=a.deadline||'9999';const db=b.deadline||'9999';return da>db?1:-1});
+
+  const all=Object.values(tasks);
+  const done=all.filter(t=>t.status==='done').length;
+  const active=all.filter(t=>t.status==='todo').length;
+  const overdue=all.filter(t=>t.status==='todo'&&isOverdue(t.deadline)).length;
+  document.getElementById('taskStats').innerHTML=`
+    <div class="mini-stat"><div class="mini-stat-n">${all.length}</div><div class="mini-stat-l">Всього</div></div>
+    <div class="mini-stat"><div class="mini-stat-n" style="color:var(--blue)">${active}</div><div class="mini-stat-l">Активних</div></div>
+    <div class="mini-stat"><div class="mini-stat-n" style="color:var(--green)">${done}</div><div class="mini-stat-l">Виконано</div></div>
+    <div class="mini-stat"><div class="mini-stat-n" style="color:var(--red)">${overdue}</div><div class="mini-stat-l">Прострочено</div></div>`;
+
+  const el=document.getElementById('tasksList');
+  if(!list.length){el.innerHTML='<div class="empty">Задач немає. Натисніть «+ Задача» щоб додати.</div>';return}
+  el.innerHTML=list.map(t=>renderTaskItem(t)).join('');
+}
+
+function getDeadlineClass(d,status){
+  if(status==='done')return'ok';
+  if(!d)return'';
+  const diff=(new Date(d)-new Date())/86400000;
+  if(diff<0)return'overdue';
+  if(diff<3)return'soon';
+  return'ok';
+}
+
+function renderTaskItem(t){
+  const company=COMPANIES.find(c=>c.id===t.companyId);
+  const dlClass=getDeadlineClass(t.deadline,t.status);
+  return`<div class="task-item">
+    <div class="task-check ${t.status==='done'?'done':''}" onclick="_toggleTask('${t.id}')">${t.status==='done'?'✓':''}</div>
+    <div class="task-body">
+      <div class="task-title ${t.status==='done'?'done':''}">${t.title}</div>
+      <div class="task-meta">
+        ${company?`<span class="task-company">🏢 ${company.name}</span>`:'<span class="task-company">📋 Загальна</span>'}
+        ${t.assignee?`<span class="task-company">👤 ${t.assignee}</span>`:''}
+        ${t.deadline?`<span class="task-deadline ${dlClass}">📅 ${fmtDate(t.deadline)}</span>`:''}
+        <span class="priority-badge ${PRIO_CLASS[t.priority]||'p-mid'}">${PRIO_LABEL[t.priority]||'Середній'}</span>
+      </div>
+      ${t.desc?`<div style="font-size:12px;color:var(--text-muted);margin-top:4px">${t.desc}</div>`:''}
+      ${t.driveLink?`<div style="font-size:11px;margin-top:4px">📁 <a href="${t.driveLink}" target="_blank" style="color:var(--blue-bright);text-decoration:none">Документ Google Drive</a></div>`:''}
+    </div>
+    <div class="task-actions">
+      <button class="btn btn-sm" onclick="_editTask('${t.id}')" title="Редагувати">✏️</button>
+      <button class="btn btn-sm btn-red" onclick="_deleteTask('${t.id}')" title="Видалити">🗑</button>
+    </div>
+  </div>`;
+}
+
+window._toggleTask=async function(id){
+  if(!tasks[id])return;
+  tasks[id].status=tasks[id].status==='done'?'todo':'done';
+  tasks[id].completedAt=tasks[id].status==='done'?new Date().toISOString():'';
+  await set(ref(db,`tasks/${id}`),tasks[id]);
+  showSync();renderTasks();
+};
+
+window._deleteTask=async function(id){
+  if(!confirm('Видалити задачу?'))return;
+  delete tasks[id];
+  await remove(ref(db,`tasks/${id}`));
+  showSync();renderTasks();
+};
+
+window._editTask=function(id){
+  const t=tasks[id];if(!t)return;
+  editingTaskId=id;
+  document.getElementById('taskModalTitle').textContent='Редагувати задачу';
+  document.getElementById('tTitle').value=t.title||'';
+  document.getElementById('tCompany').value=t.companyId||'';
+  document.getElementById('tAssignee').value=t.assignee||'';
+  document.getElementById('tDeadline').value=t.deadline||'';
+  document.getElementById('tPriority').value=t.priority||'mid';
+  document.getElementById('tDesc').value=t.desc||'';
+  document.getElementById('tDriveLink').value=t.driveLink||'';
+  document.getElementById('taskModal').classList.add('open');
+};
+
+window.openAddTask=function(){
+  editingTaskId=null;
+  document.getElementById('taskModalTitle').textContent='Нова задача';
+  ['tTitle','tAssignee','tDesc','tDriveLink'].forEach(id=>document.getElementById(id).value='');
+  ['tCompany','tPriority'].forEach(id=>document.getElementById(id).selectedIndex=0);
+  document.getElementById('tDeadline').value='';
+  document.getElementById('taskModal').classList.add('open');
+};
+
+window.saveTask=async function(){
+  const title=document.getElementById('tTitle').value.trim();
+  if(!title){alert('Введіть назву задачі');return}
+  const taskData={
+    title,
+    companyId:document.getElementById('tCompany').value||'',
+    assignee:document.getElementById('tAssignee').value,
+    deadline:document.getElementById('tDeadline').value,
+    priority:document.getElementById('tPriority').value,
+    desc:document.getElementById('tDesc').value,
+    driveLink:document.getElementById('tDriveLink').value,
+    status:editingTaskId?(tasks[editingTaskId].status||'todo'):'todo',
+    created:editingTaskId?(tasks[editingTaskId].created||Date.now()):Date.now(),
+  };
+  const id=editingTaskId||uid();
+  tasks[id]={...taskData,id};
+  await set(ref(db,`tasks/${id}`),taskData);
+  showSync();closeTaskModal();renderTasks();
+};
+
+window.closeTaskModal=function(){document.getElementById('taskModal').classList.remove('open');editingTaskId=null};
+
+// ── TABS ──────────────────────────────────────────────────
+let currentTab='companies';
+window.switchTab=function(tab){
+  currentTab=tab;
+  document.getElementById('tabCompanies').classList.toggle('active',tab==='companies');
+  document.getElementById('tabTasks').classList.toggle('active',tab==='tasks');
+  renderSidebar();
+  if(tab==='tasks')renderTasks();
+};
+
+// ── GLOBAL FUNCTIONS ──────────────────────────────────────
+window.openAddEvent=()=>_openAddEvent(null);
+window.closeAdd=()=>document.getElementById('addModal').classList.remove('open');
+window.closeDetail=()=>{document.getElementById('detailModal').classList.remove('open');currentDetailId=null};
+window.setFilter=function(f){activeFilter=f;currentTab='companies';document.getElementById('tabCompanies').classList.add('active');document.getElementById('tabTasks').classList.remove('active');render()};
+window.setView=function(v){viewMode=v;document.getElementById('vbtnCard').classList.toggle('active',v==='card');document.getElementById('vbtnTable').classList.toggle('active',v==='table');render()};
+
 window.exportJSON=function(){
-  const out={exported:new Date().toISOString(),version:2,companies:{}};
+  const out={exported:new Date().toISOString(),version:3,companies:{},tasks};
   COMPANIES.forEach(c=>{out.companies[c.code]={...c,...(state[c.id]||{})}});
   const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='КМБ_трекер_'+new Date().toISOString().split('T')[0]+'.json';
-  a.click();
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='КМБ_трекер_'+new Date().toISOString().split('T')[0]+'.json';a.click();
 };
 
 window.importJSON=function(ev){
-  const file=ev.target.files[0];
-  if(!file)return;
+  const file=ev.target.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=async e=>{
     try{
       const data=JSON.parse(e.target.result);
+      const updates={};
       if(data.companies){
-        const updates={};
         COMPANIES.forEach(c=>{
           const rec=data.companies[c.code];
-          if(rec){
-            state[c.id]={track:rec.track||'new',level:rec.level||0,lastDate:rec.lastDate||'',deadline:rec.deadline||'',nextStep:rec.nextStep||'',logs:rec.logs||[]};
-            updates[`companies/${c.id}`]=state[c.id];
-          }
+          if(rec){state[c.id]={track:rec.track||'new',level:rec.level||0,lastDate:rec.lastDate||'',deadline:rec.deadline||'',nextStep:rec.nextStep||'',logs:rec.logs||[]};updates[`companies/${c.id}`]=state[c.id]}
         });
-        await update(ref(db),updates);
-        showSync();
-        render();
-        alert('Дані імпортовано та збережено в Firebase!');
       }
-    }catch(err){alert('Помилка при імпорті файлу')}
+      if(data.tasks){Object.entries(data.tasks).forEach(([id,t])=>{tasks[id]=t;updates[`tasks/${id}`]=t})}
+      await update(ref(db),updates);
+      showSync();render();renderTasks();
+      alert('Дані імпортовано!');
+    }catch(err){alert('Помилка при імпорті')}
   };
   reader.readAsText(file);
 };
 
-// Real-time listener
-const dbRef=ref(db,'companies');
-onValue(dbRef,(snapshot)=>{
-  const data=snapshot.val()||{};
-  COMPANIES.forEach(c=>{
-    state[c.id]=data[c.id]||{track:'new',level:0,lastDate:'',deadline:'',nextStep:'Відправити Лист №1',logs:[]};
-  });
+// ── FIREBASE LISTENERS ────────────────────────────────────
+onValue(ref(db,'companies'),(snap)=>{
+  const data=snap.val()||{};
+  COMPANIES.forEach(c=>{state[c.id]=data[c.id]||{track:'new',level:0,lastDate:'',deadline:'',nextStep:'Відправити Лист №1',logs:[]}});
   document.getElementById('connStatus').textContent='Онлайн · синхронізовано';
   render();
-},(error)=>{
-  document.getElementById('connStatus').textContent='Помилка підключення';
-  console.error(error);
+  if(currentDetailId)_openDetail(currentDetailId);
+},(err)=>{document.getElementById('connStatus').textContent='Помилка підключення'});
+
+onValue(ref(db,'tasks'),(snap)=>{
+  const data=snap.val()||{};
+  tasks={};Object.entries(data).forEach(([id,t])=>{tasks[id]={...t,id}});
+  if(currentTab==='tasks')renderTasks();
+  renderSidebar();
 });
 
-document.getElementById('addModal').addEventListener('click',e=>{if(e.target===document.getElementById('addModal'))window.closeAdd()});
-document.getElementById('detailModal').addEventListener('click',e=>{if(e.target===document.getElementById('detailModal'))window.closeDetail()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){window.closeAdd();window.closeDetail()}});
+// ── INIT ──────────────────────────────────────────────────
+populateCompanySelects();
+
+['addModal','detailModal','taskModal'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{if(e.target===document.getElementById(id))document.getElementById(id).classList.remove('open')});
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')['addModal','detailModal','taskModal'].forEach(id=>document.getElementById(id).classList.remove('open'))});
 </script>
 </body>
 </html>
